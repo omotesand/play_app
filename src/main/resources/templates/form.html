@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>PlayApp | Form</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+  	<div th:object="${play}">
+  		<p th:text="*{name}">サンプル</p>
+  	</div>
+  </body>
+</html>
+
+<!-- form.htmlにth:objectを追加してDBの中身を取り出す -->
+<!-- getTextメソッドの型をString→Playにする？？？ -->
