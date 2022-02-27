@@ -8,8 +8,6 @@
   	<div th:object="${play}">
   		<p th:text="*{name}">サンプル</p>
   	</div>
+  	<a type="button" th:href="@{/play/form}">別のお題</a>
   </body>
 </html>
-
-<!-- form.htmlにth:objectを追加してDBの中身を取り出す -->
-<!-- getTextメソッドの型をString→Playにする？？？ -->
