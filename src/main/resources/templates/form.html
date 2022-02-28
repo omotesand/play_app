@@ -8,6 +8,9 @@
   	<div th:object="${play}">
   		<p th:text="*{name}">サンプル</p>
   	</div>
+  	<form method="POST" th:action="@{play/result}" th:object="${playForm}">
+  		<label for="text-id">お題に続く文章を入力してください</label>
+  	</form>
   	<a type="button" th:href="@{/play/form}">別のお題</a>
   </body>
 </html>
