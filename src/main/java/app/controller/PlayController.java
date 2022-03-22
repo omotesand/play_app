@@ -39,4 +39,9 @@ public class PlayController {
 		return "form";
 	}
 
+	/*
+	 * 結果表示画面
+	 */
+	@GetMapping("/result")
+
 }

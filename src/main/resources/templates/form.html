@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>PlayApp | Form</title>
-    <meta charset="UTF-8">
-  </head>
-  <body>
+ 	<head>
+   		<title>PlayApp | Form</title>
+   		<meta charset="UTF-8">
+ 	</head>
+ 	<body>
   	<!-- BDからランダムに取得したお題を表示 -->
   	<div th:object="${play}">
   		<p th:text="*{name}">サンプル</p>
@@ -17,5 +17,5 @@
   	</form>
   	<!-- 別のお題を表示するリンク -->
   	<a type="button" th:href="@{/play/form}">別のお題</a>
-  </body>
+ 	</body>
 </html>
