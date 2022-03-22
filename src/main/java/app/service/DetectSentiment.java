@@ -1,5 +1,6 @@
 /*
-  	This code is from https://docs.aws.amazon.com/code-samples/latest/catalog/javav2-comprehend-src-main-java-com-example-comprehend-DetectSentiment.java.html
+  	Original code is from
+  	https://docs.aws.amazon.com/code-samples/latest/catalog/javav2-comprehend-src-main-java-com-example-comprehend-DetectSentiment.java.html
 */
 package app.service;
 
@@ -25,7 +26,7 @@ public class DetectSentiment {
 		comClient.close();
 	}
 
-	public static void detectSentiments(ComprehendClient comClient, String text){
+	public static Float detectSentiments(ComprehendClient comClient, String text){
 
 	try {
 		DetectSentimentRequest detectSentimentRequest = DetectSentimentRequest.builder()
@@ -34,11 +35,12 @@ public class DetectSentiment {
 				.build();
 
 		DetectSentimentResponse detectSentimentResult = comClient.detectSentiment(detectSentimentRequest);
-		System.out.println("The Neutral value is " +detectSentimentResult.sentimentScore().neutral() );
+		return detectSentimentResult.sentimentScore().neutral();
 
 	} catch (ComprehendException e) {
 		System.err.println(e.awsErrorDetails().errorMessage());
 		System.exit(1);
+		return (float)-1.0;
 		}
 	}
 }
