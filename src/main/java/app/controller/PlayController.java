@@ -14,7 +14,7 @@ import app.service.PlayService;
 @RequestMapping("/play")
 public class PlayController {
 	//---------------------------------------------
-	//PlayServiceのDI化
+	//ServiceクラスのDI化
 	//---------------------------------------------
 	private final PlayService playService;
 	private final DetectSentiment detectSentiment;
@@ -49,7 +49,9 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(Model model) {
-
+		float score = detectSentiment.amazonComprehend();
+		model.addAttribute("score", score);
+		return "result";
 	}
 
 }

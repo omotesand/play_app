@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 
 public class DetectSentiment {
 
-	public static float amazonComprehend() {
+	public float amazonComprehend() {
 		String text = "やったあ。接続に成功したぞ。";
 		Region region = Region.AP_NORTHEAST_1;
 		ComprehendClient comClient = ComprehendClient.builder()
