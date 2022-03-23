@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 
 public class DetectSentiment {
 
-	public static void main(String[] args) {
+	public static float amazonComprehend() {
 		String text = "やったあ。接続に成功したぞ。";
 		Region region = Region.AP_NORTHEAST_1;
 		ComprehendClient comClient = ComprehendClient.builder()
@@ -21,12 +21,13 @@ public class DetectSentiment {
 				.credentialsProvider(EnvironmentVariableCredentialsProvider.create())
 				.build();
 
-		System.out.println("Calling DetectSentiment");
-		detectSentiments(comClient, text);
+		//System.out.println("Calling DetectSentiment");
+		float score = detectSentiments(comClient, text);
 		comClient.close();
+		return score;
 	}
 
-	public static Float detectSentiments(ComprehendClient comClient, String text){
+	public static float detectSentiments(ComprehendClient comClient, String text){
 
 	try {
 		DetectSentimentRequest detectSentimentRequest = DetectSentimentRequest.builder()

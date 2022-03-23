@@ -7,17 +7,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entity.Play;
+import app.service.DetectSentiment;
 import app.service.PlayService;
 
 @Controller
 @RequestMapping("/play")
 public class PlayController {
-
+	//---------------------------------------------
+	//PlayServiceのDI化
+	//---------------------------------------------
 	private final PlayService playService;
+	private final DetectSentiment detectSentiment;
 
 	@Autowired
-	public PlayController(PlayService playService) {
+	public PlayController(PlayService playService, DetectSentiment detectSentiment) {
 		this.playService = playService;
+		this.detectSentiment = detectSentiment;
 	}
 
 	/*
@@ -43,5 +48,8 @@ public class PlayController {
 	 * 結果表示画面
 	 */
 	@GetMapping("/result")
+	public String resultPage(Model model) {
+
+	}
 
 }
