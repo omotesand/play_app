@@ -4,6 +4,8 @@
 */
 package app.service;
 
+import org.springframework.stereotype.Service;
+
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
@@ -11,6 +13,7 @@ import software.amazon.awssdk.services.comprehend.model.ComprehendException;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentRequest;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 
+@Service
 public class DetectSentiment {
 
 	public float amazonComprehend() {
