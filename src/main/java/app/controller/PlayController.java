@@ -59,7 +59,7 @@ public class PlayController {
 			BindingResult result,
 			Model model) {
 		if (!result.hasErrors()) {
-			play.setText(playForm.getText());
+			//play.setText(playForm.getText());
 			float score = detectSentiment.amazonComprehend(playForm.getText());
 			model.addAttribute("score", score);
 			return "redirect:/play/result";

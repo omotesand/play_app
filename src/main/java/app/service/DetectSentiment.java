@@ -16,8 +16,8 @@ import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 @Service
 public class DetectSentiment {
 
-	public float amazonComprehend() {
-		String text = "やったあ。接続に成功したぞ。";
+	public float amazonComprehend(String text) {
+		//String text = "やったあ。接続に成功したぞ。";
 		Region region = Region.AP_NORTHEAST_1;
 		ComprehendClient comClient = ComprehendClient.builder()
 				.region(region)
