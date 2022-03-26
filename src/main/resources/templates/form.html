@@ -5,19 +5,18 @@
    		<meta charset="UTF-8">
  	</head>
  	<body>
-  	<!-- BDからランダムに取得したお題を表示 -->
+ 	<h1 th:text="${title}">ようこそ</h1>
+  	<!-- DBからランダムに取得したお題を表示 -->
   	<div th:object="${play}">
   		<p th:text="*{name}">サンプル</p>
   	</div>
   	<!-- お題に続くテキストの入力フォーム -->
   	<form method="POST" th:action="@{play/result}" th:object="${playForm}">
   		<label for="text-id">お題に続く文章を入力してください</label>
-  		<textarea name="text" id="text-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="10" maxlength="200" required></textarea>
+  		<textarea name="text" id="text-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="10" maxlength="120" required></textarea>
   		<button type="submit">投稿</button>
   	</form>
   	<!-- 別のお題を表示するリンク -->
   	<a type="button" th:href="@{/play/form}">別のお題</a>
-  	<!---感情分析の結果を表示するリンク -->
-  	<a type="button" th:href="@{/play/result}">結果確認</a>
  	</body>
 </html>
