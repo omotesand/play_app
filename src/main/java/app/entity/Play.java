@@ -1,11 +1,12 @@
 package app.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
 @Data
 public class Play {
-	private String name;
-	private Timestamp created_at;
+	private int id;
+	private String text;
+	private LocalDateTime created_at;
 }
