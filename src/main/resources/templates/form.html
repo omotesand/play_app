@@ -8,7 +8,7 @@
  	<h1 th:text="${title}">ようこそ</h1>
   	<!-- DBからランダムに取得したお題を表示 -->
   	<div th:object="${play}">
-  		<p th:text="*{name}">サンプル</p>
+  		<p th:text="*{text}">サンプル</p>
   	</div>
   	<!-- お題に続くテキストの入力フォーム -->
   	<form method="POST" th:action="@{play/result}" th:object="${playForm}">
