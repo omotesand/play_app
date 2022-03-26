@@ -81,9 +81,8 @@ public class PlayController {
 	public String resultPage(
 			@ModelAttribute("text") String text,
 			Model model) {
-		//float score = detectSentiment.amazonComprehend(playForm.getText());
-		//float score = (float)0.22;
-		String score = text;
+		float score = detectSentiment.amazonComprehend(text);
+		//String score = text;
 		model.addAttribute("score", score);
 		return "result";
 	}
