@@ -11,7 +11,7 @@
   		<p th:text="*{text}">サンプル</p>
   	</div>
   	<!-- お題に続くテキストの入力フォーム -->
-  	<form method="POST" th:action="@{play/result}" th:object="${playForm}">
+  	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
   		<label for="text-id">お題に続く文章を入力してください</label>
   		<textarea name="text" id="text-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="10" maxlength="120" required></textarea>
   		<button type="submit">投稿</button>

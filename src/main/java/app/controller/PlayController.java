@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.entity.Play;
 import app.form.PlayForm;
@@ -40,7 +42,7 @@ public class PlayController {
 	}
 
 	/*
-	 * 文章投稿画面
+	 * フォーム画面
 	 */
 	@GetMapping("/form")
 	public String formPage(Model model) {
@@ -51,23 +53,39 @@ public class PlayController {
 	}
 
 	/*
-	 * 結果表示画面
+	 * 投稿文章のValidation結果による振り分け
+	 * Validation OK：結果確認画面へ
+	 * Validation NG：再度フォーム画面へ
 	 */
-	@GetMapping("/result")
-	public String resultPage(
+	@PostMapping("/judge")
+	public String judgeText(
 			@Valid @ModelAttribute PlayForm playForm,
 			BindingResult result,
-			Model model) {
+			Model model,
+			RedirectAttributes redirectAttributes) {
 		if (!result.hasErrors()) {
 			//play.setText(playForm.getText());
-			float score = detectSentiment.amazonComprehend(playForm.getText());
-			model.addAttribute("score", score);
+			//DBへ投稿文章を登録する処理を追記
+			redirectAttributes.addFlashAttribute("text", playForm.getText());
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
 			return "form";
 		}
+	}
 
+	/*
+	 * 投稿文章Validation：OKの場合の結果
+	 */
+	@GetMapping("/result")
+	public String resultPage(
+			@ModelAttribute("text") String text,
+			Model model) {
+		//float score = detectSentiment.amazonComprehend(playForm.getText());
+		//float score = (float)0.22;
+		String score = text;
+		model.addAttribute("score", score);
+		return "result";
 	}
 
 }
