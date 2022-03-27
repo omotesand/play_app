@@ -1,5 +1,6 @@
 package app.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class PlayController {
 		this.detectSentiment = detectSentiment;
 	}
 
+	@Autowired
+	HttpSession session;
+
 	/*
 	 * ホーム画面
 	 */
@@ -46,7 +50,8 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(Model model) {
-		Play play = playService.getText();
+		Play play = playService.getText();        //DBからお題を取得
+		session.setAttribute("challenge", play);  //お題をセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("play", play);
 		return "form";
@@ -81,9 +86,13 @@ public class PlayController {
 	public String resultPage(
 			@ModelAttribute("text") String text,
 			Model model) {
-		float score = detectSentiment.amazonComprehend(text);
+		//float score = detectSentiment.amazonComprehend(text);
 		//String score = text;
+		Play play = (Play)session.getAttribute("challenge");
+		String text1 = play.getText();
+		String score = text1 + text;
 		model.addAttribute("score", score);
+		session.invalidate();
 		return "result";
 	}
 
