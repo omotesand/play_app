@@ -5,8 +5,8 @@
 <mapper namespace="app.repository.PlayDao">
     <select id="getChallenge" resultType="app.entity.Play">
         SELECT text
-        	FROM playTable AS pt
-        	INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM playtable)) AS id) AS tmp
+        	FROM play_table AS pt
+        	INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM play_table)) AS id) AS tmp
         	ON pt.id = tmp.id
     </select>
 </mapper>
