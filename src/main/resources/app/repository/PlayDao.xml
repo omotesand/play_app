@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.repository.PlayDao">
-    <select id="getText" resultType="app.entity.Play">
+    <select id="getChallenge" resultType="app.entity.Play">
         SELECT text
-        	FROM playtable AS pt
+        	FROM playTable AS pt
         	INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM playtable)) AS id) AS tmp
         	ON pt.id = tmp.id
     </select>

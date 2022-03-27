@@ -50,7 +50,7 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(Model model) {
-		Play play = playService.getText();        //DBからお題を取得
+		Play play = playService.getChallenge();        //DBからお題を取得
 		session.setAttribute("challenge", play);  //お題をセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("play", play);
@@ -89,8 +89,8 @@ public class PlayController {
 		//float score = detectSentiment.amazonComprehend(text);
 		//String score = text;
 		Play play = (Play)session.getAttribute("challenge");
-		String text1 = play.getText();
-		String score = text1 + text;
+		String challenge = play.getChallenge();
+		String score = challenge + text;
 		model.addAttribute("score", score);
 		session.invalidate();
 		return "result";

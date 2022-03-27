@@ -16,8 +16,8 @@ public class PlayService {
 		this.dao = dao;
 	}
 
-	public Play getText() {
-		return dao.getText();
+	public Play getChallenge() {
+		return dao.getChallenge();
 	}
 
 //	public List<Play> getText() {

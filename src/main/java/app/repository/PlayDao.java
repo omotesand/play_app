@@ -6,7 +6,5 @@ import app.entity.Play;
 
 @Mapper
 public interface PlayDao {
-	//DBからテキストデータを一件取得
-	//Play getText();
-	Play getText();
+	Play getChallenge();
 }

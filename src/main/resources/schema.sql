@@ -1,10 +1,10 @@
 -- #timetableがあれば削除
-DROP TABLE IF EXISTS playtable;
+DROP TABLE IF EXISTS playTable;
 
 -- timetableがなければ新しく作成
-CREATE TABLE IF NOT EXISTS playtable(
+CREATE TABLE IF NOT EXISTS playTable(
 id INT AUTO_INCREMENT,
-text VARCHAR(10) NOT NULL,
+challenge VARCHAR(50) NOT NULL,
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY(id)
 );

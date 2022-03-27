@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class Play {
 	private int id;
-	private String text;
+	private String challenge;
 	private LocalDateTime created_at;
 }

@@ -1,5 +1,6 @@
-INSERT INTO playtable(text)
-               VALUES("モコ"),
-                     ("ポチ"),
-                     ("シロ"),
-                     ("チョコ");
+--事前登録のお題データはDBeaverから直接入力
+--INSERT INTO playtable(text)
+--               VALUES("モコ"),
+--                     ("ポチ"),
+--                     ("シロ"),
+--                     ("チョコ");
