@@ -1,10 +1,11 @@
--- #timetableがあれば削除
-DROP TABLE IF EXISTS play_table;
+-- #tableがあれば削除
+DROP TABLE IF EXISTS answers;
 
--- timetableがなければ新しく作成
-CREATE TABLE IF NOT EXISTS play_table(
-id INT AUTO_INCREMENT,
+-- tableがなければ新しく作成
+CREATE TABLE IF NOT EXISTS answers(
+challenge_id INT AUTO_INCREMENT,
+-- sentiment_type
 challenge VARCHAR(50) NOT NULL,
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY(id)
+PRIMARY KEY(challenge_id)
 );
