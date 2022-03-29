@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.math.BigDecimal;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -50,7 +52,7 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(Model model) {
-		Play play = playService.getChallenge();        //DBからお題を取得
+		Play play = playService.getChallenge();   //DBからお題を取得
 		session.setAttribute("challenge", play);  //お題をセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("play", play);
@@ -96,4 +98,16 @@ public class PlayController {
 		return "result";
 	}
 
+	/*
+	 * 投稿結果のランキングをグラフで見る
+	 */
+	@GetMapping("/chart")
+	public String showRankingByChart(Model model) {
+		String label[] = {"a", "b", "c"};
+		//BigDecimal score[] = {0.99, 0.85, 0.61};
+		BigDecimal score[] = {BigDecimal.valueOf(0.99), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
+		model.addAttribute("label", label);
+		model.addAttribute("score", score);
+		return "chart";
+	}
 }
