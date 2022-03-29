@@ -3,9 +3,13 @@
  	<head>
 		<title>PlayApp | Chart</title>
    		<meta charset="UTF-8">
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/Chart.min.js"></script>
   	</head>
   	<body>
-   		<h1 th:text="${score}">スコア</h1>
+   		<canvas id="sentimentScoreChart"></canvas>
+   		<script type="text/javascript" th:inline="javascript">
+   			var ctx = document.getElementById("sentimentScoreChart");
+   		</script>
    		<a type="button" th:href="@{/form}">投稿する</a>
   	</body>
 </html>
