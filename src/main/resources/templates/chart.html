@@ -9,6 +9,17 @@
    		<canvas id="sentimentScoreChart"></canvas>
    		<script type="text/javascript" th:inline="javascript">
    			var ctx = document.getElementById("sentimentScoreChart");
+   			var barChart = new Chart(ctx, {
+   				type: "bar",
+   				data: {
+   					labels: [[${label}]],
+   					datasets: [{
+   						label: "test",
+   						data: [[${score}]],
+   						backgroundColor: "rgba(219,39,91,0.5)"
+   					}]
+   				}
+   			})
    		</script>
    		<a type="button" th:href="@{/form}">投稿する</a>
   	</body>
