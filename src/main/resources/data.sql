@@ -1,5 +1,5 @@
---事前登録のお題データはDBeaverから直接入力
-INSERT INTO play_table(challenge)
+-- challngesテーブル
+INSERT INTO challenges(challenge)
                VALUES("プログラミングを勉強してみたら、"),
                      ("初めてやったのがC言語で、"),
                      ("今日の夜ご飯は"),
