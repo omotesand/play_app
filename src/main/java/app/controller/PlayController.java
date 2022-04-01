@@ -52,7 +52,7 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(Model model) {
-		Play play = playService.getChallenge();   //DBからお題を取得
+		Play play = playService.findChallenge();   //DBからお題を取得
 		session.setAttribute("challenge", play);  //お題をセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("play", play);
@@ -73,7 +73,7 @@ public class PlayController {
 		if (!result.hasErrors()) {
 			//play.setText(playForm.getText());
 			//DBへ投稿文章を登録する処理を追記
-			redirectAttributes.addFlashAttribute("text", playForm.getText());
+			redirectAttributes.addFlashAttribute("input", playForm.getInput()); //フォームへの投稿をフラッシュスコープへ格納
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
@@ -86,13 +86,13 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(
-			@ModelAttribute("text") String text,
+			@ModelAttribute("input") String input,
 			Model model) {
 		//float score = detectSentiment.amazonComprehend(text);
 		//String score = text;
-		Play play = (Play)session.getAttribute("challenge");
+		Play play = (Play)session.getAttribute("challenge"); //セッション情報を取得
 		String challenge = play.getChallenge();
-		String score = challenge + text;
+		String score = challenge + input;
 		model.addAttribute("score", score);
 		session.invalidate();
 		return "result";

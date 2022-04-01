@@ -6,5 +6,5 @@ import app.entity.Play;
 
 @Mapper
 public interface PlayDao {
-	Play getChallenge();
+	Play findChallenge();
 }

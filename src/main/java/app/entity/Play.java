@@ -1,12 +1,10 @@
 package app.entity;
 
-import java.time.LocalDateTime;
-
 import lombok.Data;
 
 @Data
 public class Play {
-	private int id;
+	private int challengeId;
 	private String challenge;
-	private LocalDateTime created_at;
+//	private LocalDateTime created_at;
 }
