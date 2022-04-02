@@ -86,15 +86,15 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(
-			@ModelAttribute("input") String input,
+			@ModelAttribute("input") String input, //view(フォームへの投稿)をcontrollerで取得
 			Model model) {
 		//float score = detectSentiment.amazonComprehend(text);
 		//String score = text;
-		Play play = (Play)session.getAttribute("challenge"); //セッション情報を取得
-		String challenge = play.getChallenge();
-		String score = challenge + input;
+		Play play = (Play)session.getAttribute("challenge"); //セッションへ保存されたお題オブジェクトを取得
+		String challenge = play.getChallenge();              //お題オブジェクトからお題のテキストを取得
+		String score = challenge + input;                    //「お題のテキスト」＋「フォームへの投稿」
 		model.addAttribute("score", score);
-		session.invalidate();
+		session.invalidate();                                //セッションを切断
 		return "result";
 	}
 
