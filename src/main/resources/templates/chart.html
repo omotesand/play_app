@@ -5,7 +5,7 @@
    		<meta charset="UTF-8">
   	</head>
   	<body>
-   		<canvas id="sentimentScoreChart" width="400" height="400" aria-label="Hello" role="img"></canvas>
+   		<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
    		<script type="text/javascript" th:inline="javascript">
    			const ctx = document.getElementById("sentimentScoreChart");
@@ -23,6 +23,11 @@
    					title: {
    						display: true,
    						text: "test-title"
+   					},
+   					responsive: true,
+   					//maintainAspectRatio: false,
+   					layout: {
+   						padding: 20
    					}
    				}
    			});
