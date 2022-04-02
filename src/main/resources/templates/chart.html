@@ -3,13 +3,13 @@
  	<head>
 		<title>PlayApp | Chart</title>
    		<meta charset="UTF-8">
-   		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/Chart.min.js"></script>
   	</head>
   	<body>
-   		<canvas id="sentimentScoreChart"></canvas>
+   		<canvas id="sentimentScoreChart" width="400" height="400" aria-label="Hello" role="img"></canvas>
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
    		<script type="text/javascript" th:inline="javascript">
-   			var ctx = document.getElementById("sentimentScoreChart");
-   			var barChart = new Chart(ctx, {
+   			const ctx = document.getElementById("sentimentScoreChart");
+   			const barChart = new Chart(ctx, {
    				type: "bar",
    				data: {
    					labels: [[${label}]],
