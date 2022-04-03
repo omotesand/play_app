@@ -1,5 +1,7 @@
 package app.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +18,18 @@ public class PlayService {
 		this.dao = dao;
 	}
 
+	/*
+	 * challengesテーブルからお題をひとつ取得するメソッド
+	 */
 	public Play findChallenge() {
 		return dao.findChallenge();
 	}
 
-//	public List<Play> getText() {
-//		return dao.findAll();
-//	}
+	/*
+	 * inputsテーブルからスコアを取得するメソッド
+	 */
+	public BigDecimal[] findScore() {
+		return dao.findScore();
+	}
+
 }

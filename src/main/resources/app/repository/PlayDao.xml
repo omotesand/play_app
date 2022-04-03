@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.repository.PlayDao">
-    <select id="findChallenge" resultType="app.entity.Play">
-        SELECT challenge
-        	FROM challenges AS ch
-        	INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(challenge_id) FROM challenges)) AS id) AS tmp
-        	ON ch.challenge_id = tmp.id
-    </select>
+   	<select id="findChallenge" resultType="app.entity.Play">
+		SELECT challenge
+			FROM challenges AS ch
+			INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(challenge_id) FROM challenges)) AS id) AS tmp
+			ON ch.challenge_id = tmp.id
+   	</select>
+   	<select id="findScore" resultType="app.entity.Play">
+		SELECT score FROM inputs
+   	</select>
 </mapper>
