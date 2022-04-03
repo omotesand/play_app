@@ -103,12 +103,12 @@ public class PlayController {
 	 */
 	@GetMapping("/chart")
 	public String showRankingByChart(Model model) {
-		String label[] = {"a", "b", "c"};
+		String[] label = {"a", "b", "c"};
 		//BigDecimal[] foo = {BigDecimal.valueOf(0.97), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
 		//BigDecimal score[] = foo;
-		BigDecimal score[] = playService.findScore();
+		BigDecimal[] scoreList = playService.findScore();
 		model.addAttribute("label", label);
-		model.addAttribute("score", score);
+		model.addAttribute("scoreList", scoreList);
 		return "chart";
 	}
 }

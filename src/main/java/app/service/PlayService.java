@@ -29,6 +29,10 @@ public class PlayService {
 	 * inputsテーブルからスコアを取得するメソッド
 	 */
 	public BigDecimal[] findScore() {
+		//BigDecimal[] scoreList = dao.findScore();
+		//BigDecimal[] scoreList = new BigDecimal[3];
+		//for(int i = 0; i <= 3; i++) {
+		//}
 		return dao.findScore();
 	}
 
