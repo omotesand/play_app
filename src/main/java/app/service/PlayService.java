@@ -1,6 +1,8 @@
 package app.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +30,17 @@ public class PlayService {
 	/*
 	 * inputsテーブルからスコアを取得するメソッド
 	 */
-	public BigDecimal[] findScore() {
+	public List<BigDecimal> findScore() {
 		//BigDecimal[] scoreList = dao.findScore();
-		//BigDecimal[] scoreList = new BigDecimal[3];
-		//for(int i = 0; i <= 3; i++) {
-		//}
-		return dao.findScore();
+		//List<Map<String, Object>> dbScoreList = dao.findScore();
+		List<Play> dbScoreList = dao.findScore();
+		List<BigDecimal> scoreList = new ArrayList<BigDecimal>();
+		for(int i = 0; i < 3; i++) {
+			//Play play = new Play();
+			scoreList.add(dbScoreList.get(i).getScore());
+
+		}
+		return scoreList;
 	}
 
 }

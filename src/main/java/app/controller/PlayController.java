@@ -1,6 +1,7 @@
 package app.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -105,10 +106,12 @@ public class PlayController {
 	public String showRankingByChart(Model model) {
 		String[] label = {"a", "b", "c"};
 		//BigDecimal[] foo = {BigDecimal.valueOf(0.97), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
-		//BigDecimal score[] = foo;
-		BigDecimal[] scoreList = playService.findScore();
+		//List<Play> scoreList = playService.findScore();
+		List<BigDecimal> scoreList = playService.findScore();
+		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
+		//scoreList = playService.findScore();
 		model.addAttribute("label", label);
-		model.addAttribute("scoreList", scoreList);
+		model.addAttribute("scoreArray", scoreArray);
 		return "chart";
 	}
 }

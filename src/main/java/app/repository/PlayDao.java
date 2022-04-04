@@ -1,6 +1,6 @@
 package app.repository;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,5 +10,7 @@ import app.entity.Play;
 public interface PlayDao {
 	Play findChallenge();
 
-	BigDecimal[] findScore();
+	//List<Map<String, Object>> findScore();
+	//BigDecimal[] findScore();
+	List<Play> findScore();
 }
