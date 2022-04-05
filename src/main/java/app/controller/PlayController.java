@@ -106,10 +106,8 @@ public class PlayController {
 	public String showRankingByChart(Model model) {
 		String[] label = {"a", "b", "c"};
 		//BigDecimal[] foo = {BigDecimal.valueOf(0.97), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
-		//List<Play> scoreList = playService.findScore();
-		List<BigDecimal> scoreList = playService.findScore();
-		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
-		//scoreList = playService.findScore();
+		List<BigDecimal> scoreList  = playService.findScore();                             //DBからスコアのListを取得
+		BigDecimal[]     scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]); //BigDecimal型の配列に変換
 		model.addAttribute("label", label);
 		model.addAttribute("scoreArray", scoreArray);
 		return "chart";

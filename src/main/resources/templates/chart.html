@@ -5,7 +5,7 @@
    		<meta charset="UTF-8">
   	</head>
   	<body>
-   		<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
+     	<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
    		<script type="text/javascript" th:inline="javascript">
    			const ctx = document.getElementById("sentimentScoreChart");
@@ -15,7 +15,7 @@
    					labels: [[${label}]],
    					datasets: [{
    						label: "test",
-   						data: [[${scoreList}]],
+   						data: [[${scoreArray}]],
    						backgroundColor: "rgba(219,39,91,0.5)"
    					}]
    				},

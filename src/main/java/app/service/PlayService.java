@@ -28,17 +28,15 @@ public class PlayService {
 	}
 
 	/*
-	 * inputsテーブルからスコアを取得するメソッド
+	 * inputsテーブルからスコアのListを取得するメソッド
 	 */
 	public List<BigDecimal> findScore() {
-		//BigDecimal[] scoreList = dao.findScore();
 		//List<Map<String, Object>> dbScoreList = dao.findScore();
-		List<Play> dbScoreList = dao.findScore();
-		List<BigDecimal> scoreList = new ArrayList<BigDecimal>();
+		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
+		List<BigDecimal> scoreList   = new ArrayList<BigDecimal>(); //BigDecimal型の空Listを用意
 		for(int i = 0; i < 3; i++) {
 			//Play play = new Play();
-			scoreList.add(dbScoreList.get(i).getScore());
-
+			scoreList.add(dbScoreList.get(i).getScore());           //List<Play>型オブジェクトからスコアを取得
 		}
 		return scoreList;
 	}
