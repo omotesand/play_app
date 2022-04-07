@@ -20,3 +20,11 @@ score DECIMAL(4, 3) NOT NULL,-- 感情分析結果スコア
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY(input_id)
 );
+-- ------------------------------------------------------
+DROP TABLE IF EXISTS sentiment;
+
+CREATE TABLE IF NOT EXISTS sentiment(
+sentiment_id NOT NULL,              -- 感情ID（1:Positive, 2:Nutral, 3:Negative）
+sentiment_type VARCHAR(10) NOT NULL,-- 感情タイプ（Positive or Nutral or Negative）
+PRIMARY KEY(sentiment_id)
+);
