@@ -8,7 +8,9 @@ INSERT INTO challenges(challenge)
 
 -- inputsテーブル
 INSERT INTO inputs(sentiment_type, input, score)
-            VALUES(1, "想像以上におもしろかった", 0.975);
+            VALUES(1, "想像以上におもしろかった（サンプル）", 0.975),
+                  (1, "とても素敵な日を過ごした（サンプル）", 0.765),
+                  (1, "忘れられない思い出となった（サンプル）", 0.545);
 
 -- sentimentテーブル
 INSERT INTO sentiment(sentiment_id, sentiment_type)
