@@ -11,7 +11,12 @@ public class Play {
 	private String challenge;
 
 	//inputsテーブル
-	private int inputId;
+	private int        inputId;
+	private int        sentimentType;
+	private String     input;
 	private BigDecimal score;
 //	private LocalDateTime created_at;
+
+	//sentimentテーブル
+	private int sentimentId;
 }
