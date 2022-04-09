@@ -12,6 +12,7 @@ public class Play {
 
 	//inputsテーブル
 	private int        inputId;
+	private int        currentChallengeId;
 	private int        sentimentType;
 	private String     input;
 	private BigDecimal score;

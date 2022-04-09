@@ -53,8 +53,8 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(PlayForm playForm, Model model) {
-		Play play = playService.findChallenge();   //DBからお題を取得
-		session.setAttribute("challenge", play);  //お題をセッションへ保存
+		Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
+		session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("play", play);
 		return "form";
@@ -74,8 +74,9 @@ public class PlayController {
 			) {
 		if (!result.hasErrors()) {
 			//DBへ投稿文章を登録する処理を追記
-			redirectAttributes.addFlashAttribute("sentimentType", playForm.getSentimentType()); //感情タイプの選択をフラッシュスコープへ格納
-			redirectAttributes.addFlashAttribute("input",         playForm.getInput()        ); //フォームへの投稿をフラッシュスコープへ格納
+			//redirectAttributes.addFlashAttribute("sentimentType", playForm.getSentimentType()); //感情タイプの選択をフラッシュスコープへ格納
+			//redirectAttributes.addFlashAttribute("input",         playForm.getInput()        ); //フォームへの投稿をフラッシュスコープへ格納
+			redirectAttributes.addFlashAttribute("playForm", playForm);
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
@@ -88,15 +89,25 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(
-			@ModelAttribute("input") String input,           //view(フォームへの投稿)をcontrollerで取得
+			//@ModelAttribute("sentimentType") int    sentimentType,   //viewで選択した感情タイプをcontrollerで取得
+			//@ModelAttribute("input")         String input,           //view(フォームへの投稿)をcontrollerで取得
+			@ModelAttribute("playForm") PlayForm playForm,
 			Model model) {
 		//float score = detectSentiment.amazonComprehend(text);
-		//String score = text;
-		Play play = (Play)session.getAttribute("challenge"); //セッションへ保存されたお題オブジェクトを取得
-		String challenge = play.getChallenge();              //お題オブジェクトからお題のテキストを取得
-		//String input = playForm.getInput(); //今回追加
-		String score = challenge + input;                    //「お題のテキスト」＋「フォームへの投稿」
-		model.addAttribute("score", score);
+		//セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）
+		Play challenges = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
+		int    challengeId = challenges.getChallengeId();          //challengesテーブルのレコードからお題IDを取得
+		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
+		//Entityに詰め替える処理
+		Play play = new Play();
+		play.setCurrentChallengeId(challengeId);            //inputsテーブルのcurrent_challenge_idに値をセット
+		play.setSentimentType(playForm.getSentimentType()); //FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());                 //FormからEntityへ投稿内容の詰め替え
+		play.setScore(BigDecimal.valueOf(0.57));
+		//DBへinsert
+		playService.insert(play);
+		String sentimentAnalyzed = challenge + playForm.getInput();        //「お題のテキスト」＋「フォームへの投稿」
+		model.addAttribute("sentimentAnalyzed", sentimentAnalyzed);
 		session.invalidate();                                //セッションを切断
 		return "result";
 	}

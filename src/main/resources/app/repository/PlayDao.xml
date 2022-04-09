@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.repository.PlayDao">
    	<select id="findChallenge" resultType="app.entity.Play">
-		SELECT challenge
+		SELECT *
 			FROM challenges AS ch
 			INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(challenge_id) FROM challenges)) AS id) AS tmp
 			ON ch.challenge_id = tmp.id

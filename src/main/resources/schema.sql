@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS inputs;
 -- tableがなければ新しく作成
 CREATE TABLE IF NOT EXISTS inputs(
 input_id       INT                    AUTO_INCREMENT,-- 投稿ID
-challenge_id   INT           NOT NULL,               -- challnegsテーブルのchallenge_idと同等
+current_challenge_id INT    NOT NULL,               -- challnegsテーブルのchallenge_idと同等
 sentiment_type INT           NOT NULL,               -- 感情タイプ（1:Positive, 2:Nutral, 3:Negative）
 input          VARCHAR(120)  NOT NULL,               -- 投稿内容
 score          DECIMAL(4, 3) NOT NULL,               -- 感情分析結果スコア
