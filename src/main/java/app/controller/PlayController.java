@@ -73,9 +73,9 @@ public class PlayController {
 			RedirectAttributes redirectAttributes
 			) {
 		if (!result.hasErrors()) {
-			//sentiment_typeを受け取る処理を記述
 			//DBへ投稿文章を登録する処理を追記
-			redirectAttributes.addFlashAttribute("input", playForm.getInput()); //フォームへの投稿をフラッシュスコープへ格納
+			redirectAttributes.addFlashAttribute("sentimentType", playForm.getSentimentType()); //感情タイプの選択をフラッシュスコープへ格納
+			redirectAttributes.addFlashAttribute("input",         playForm.getInput()        ); //フォームへの投稿をフラッシュスコープへ格納
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");

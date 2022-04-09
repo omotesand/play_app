@@ -7,11 +7,13 @@ INSERT INTO challenges(challenge)
                   ("今年の夏は例年より暑くなると");
 
 -- inputsテーブル
-INSERT INTO inputs(sentiment_type, input, score)
-            VALUES(1, "想像以上におもしろかった（サンプル）", 0.975),
-                  (1, "とても素敵な日を過ごした（サンプル）", 0.765),
-                  (1, "忘れられない思い出となった（サンプル）", 0.545);
+INSERT INTO inputs(challenge_id, sentiment_type, input, score)
+            VALUES(1, 1, "想像以上におもしろかった（サンプル）", 0.975),
+                  (2, 1, "とても素敵な日を過ごした（サンプル）", 0.765),
+                  (3, 1, "忘れられない思い出となった（サンプル）", 0.545);
 
 -- sentimentテーブル
 INSERT INTO sentiment(sentiment_id, sentiment_type)
-            VALUES(1, "Postive");
+            VALUES(1, "Postive"),
+                  (2, "Neutral"),
+                  (3, "Negative");
