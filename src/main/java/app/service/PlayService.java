@@ -28,6 +28,13 @@ public class PlayService {
 	}
 
 	/*
+	 * 投稿とそれに不随するデータをDBに登録するメソッド
+	 */
+	public void insert(Play play) {
+		dao.insert(play);
+	}
+
+	/*
 	 * inputsテーブルからスコアのListを取得するメソッド
 	 */
 	public List<BigDecimal> findScore() {

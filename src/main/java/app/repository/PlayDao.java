@@ -10,6 +10,8 @@ import app.entity.Play;
 public interface PlayDao {
 	Play findChallenge();
 
+	void insert(Play play);
+
 	//List<Map<String, Object>> findScore();
 	//BigDecimal[] findScore();
 	List<Play> findScore();

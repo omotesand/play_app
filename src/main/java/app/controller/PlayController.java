@@ -94,21 +94,23 @@ public class PlayController {
 			@ModelAttribute("playForm") PlayForm playForm,
 			Model model) {
 		//float score = detectSentiment.amazonComprehend(text);
-		//セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）
+		//-----セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）-----
 		Play challenges = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
 		int    challengeId = challenges.getChallengeId();          //challengesテーブルのレコードからお題IDを取得
 		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
-		//Entityに詰め替える処理
+
+		//-----inputsテーブルへのデータ登録のためにEntityに詰め替える処理-----
 		Play play = new Play();
-		play.setCurrentChallengeId(challengeId);            //inputsテーブルのcurrent_challenge_idに値をセット
-		play.setSentimentType(playForm.getSentimentType()); //FormからEntityへ感情タイプの詰め替え
-		play.setInput(playForm.getInput());                 //FormからEntityへ投稿内容の詰め替え
+		play.setCurrentChallengeId(challengeId);                  //inputsテーブルのcurrent_challenge_idに値をセット
+		play.setSentimentType(playForm.getSentimentType());       //FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());                       //FormからEntityへ投稿内容の詰め替え
 		play.setScore(BigDecimal.valueOf(0.57));
-		//DBへinsert
-		playService.insert(play);
-		String sentimentAnalyzed = challenge + playForm.getInput();        //「お題のテキスト」＋「フォームへの投稿」
+
+		//-----最後まとめ-----
+		playService.insert(play);                                  //DBへinsert
+		String sentimentAnalyzed = challenge + playForm.getInput();//「お題のテキスト」＋「フォームへの投稿」
 		model.addAttribute("sentimentAnalyzed", sentimentAnalyzed);
-		session.invalidate();                                //セッションを切断
+		session.invalidate();                                      //セッションを切断
 		return "result";
 	}
 

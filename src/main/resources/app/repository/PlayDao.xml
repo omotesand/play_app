@@ -9,6 +9,12 @@
 			INNER JOIN (SELECT CEIL(RAND() * (SELECT MAX(challenge_id) FROM challenges)) AS id) AS tmp
 			ON ch.challenge_id = tmp.id
    	</select>
+
+   	<insert id="insert">
+   		INSERT INTO inputs(current_challenge_id, sentiment_type, input, score)
+   			VALUES(#{currentChallengeId}, #{sentimentType}, #{input}, #{score});
+   	</insert>
+
    	<select id="findScore" resultType="app.entity.Play">
 		SELECT score FROM inputs
    	</select>
