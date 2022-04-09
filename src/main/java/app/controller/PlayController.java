@@ -52,7 +52,7 @@ public class PlayController {
 	 * フォーム画面
 	 */
 	@GetMapping("/form")
-	public String formPage(Model model) {
+	public String formPage(PlayForm playForm, Model model) {
 		Play play = playService.findChallenge();   //DBからお題を取得
 		session.setAttribute("challenge", play);  //お題をセッションへ保存
 		model.addAttribute("title", "文章を入力してください");
@@ -70,9 +70,10 @@ public class PlayController {
 			@Valid @ModelAttribute PlayForm playForm,
 			BindingResult result,
 			Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes
+			) {
 		if (!result.hasErrors()) {
-			//play.setText(playForm.getText());
+			//sentiment_typeを受け取る処理を記述
 			//DBへ投稿文章を登録する処理を追記
 			redirectAttributes.addFlashAttribute("input", playForm.getInput()); //フォームへの投稿をフラッシュスコープへ格納
 			return "redirect:/play/result";
@@ -87,12 +88,13 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(
-			@ModelAttribute("input") String input, //view(フォームへの投稿)をcontrollerで取得
+			@ModelAttribute("input") String input,           //view(フォームへの投稿)をcontrollerで取得
 			Model model) {
 		//float score = detectSentiment.amazonComprehend(text);
 		//String score = text;
 		Play play = (Play)session.getAttribute("challenge"); //セッションへ保存されたお題オブジェクトを取得
 		String challenge = play.getChallenge();              //お題オブジェクトからお題のテキストを取得
+		//String input = playForm.getInput(); //今回追加
 		String score = challenge + input;                    //「お題のテキスト」＋「フォームへの投稿」
 		model.addAttribute("score", score);
 		session.invalidate();                                //セッションを切断
