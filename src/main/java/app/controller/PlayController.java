@@ -99,8 +99,10 @@ public class PlayController {
 		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
 
 		//-----Amazon Comprehendで感情分析する-----
-		String analyzedSentiment = challenge + playForm.getInput();            //「お題」＋「投稿」のテキスト
-		BigDecimal score = detectSentiment.amazonComprehend(analyzedSentiment);//Amazon Comprehendで感情分析スコア算出
+		int    analyzedSentimentType = playForm.getSentimentType();            //フォームで選択した感情タイプを取得
+		String analyzedSentimentText = challenge + playForm.getInput();        //「お題」＋「投稿」のテキスト
+		BigDecimal score
+		= detectSentiment.amazonComprehend(analyzedSentimentType, analyzedSentimentText);//Amazon Comprehendで感情分析スコア算出
 
 		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
 		Play play = new Play();
@@ -111,7 +113,7 @@ public class PlayController {
 
 		//-----最後まとめ-----
 		playService.insert(play);                                    //DBへinsert
-		model.addAttribute("analyzedSentiment", analyzedSentiment);
+		model.addAttribute("analyzedSentimentText", analyzedSentimentText);
 		model.addAttribute("score", score);
 		session.invalidate();                                        //セッションを切断
 		return "result";
