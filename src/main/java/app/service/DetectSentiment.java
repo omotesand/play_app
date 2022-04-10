@@ -40,7 +40,8 @@ public class DetectSentiment {
 				.build();
 
 		DetectSentimentResponse detectSentimentResult = comClient.detectSentiment(detectSentimentRequest);
-		return BigDecimal.valueOf(detectSentimentResult.sentimentScore().neutral());
+		BigDecimal oneHundred = new BigDecimal("100"); //最後にスコアを100倍（100点満点にする）
+		return BigDecimal.valueOf(detectSentimentResult.sentimentScore().neutral()).multiply(oneHundred);
 
 	} catch (ComprehendException e) {
 		System.err.println(e.awsErrorDetails().errorMessage());

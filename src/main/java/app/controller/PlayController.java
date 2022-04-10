@@ -98,20 +98,22 @@ public class PlayController {
 		int    challengeId = challenges.getChallengeId();          //challengesテーブルのレコードからお題IDを取得
 		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
 
-		//-----inputsテーブルへのデータ登録のためにEntityに詰め替える処理-----
+		//-----Amazon Comprehendで感情分析する-----
+		String analyzedSentiment = challenge + playForm.getInput();            //「お題」＋「投稿」のテキスト
+		BigDecimal score = detectSentiment.amazonComprehend(analyzedSentiment);//Amazon Comprehendで感情分析スコア算出
+
+		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
 		Play play = new Play();
-		play.setCurrentChallengeId(challengeId);                  //inputsテーブルのcurrent_challenge_idに値をセット
-		play.setSentimentType(playForm.getSentimentType());       //FormからEntityへ感情タイプの詰め替え
-		play.setInput(playForm.getInput());                       //FormからEntityへ投稿内容の詰め替え
-		play.setScore(BigDecimal.valueOf(0.57));
+		play.setCurrentChallengeId(challengeId);            //inputsテーブルのcurrent_challenge_idに値をセット
+		play.setSentimentType(playForm.getSentimentType()); //FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());                 //FormからEntityへ投稿内容の詰め替え
+		play.setScore(score);                               //感情分析スコアをセット
 
 		//-----最後まとめ-----
-		playService.insert(play);                                              //DBへinsert
-		String analyzedSentiment = challenge + playForm.getInput();            //「お題」＋「投稿」のテキスト
-		BigDecimal score = detectSentiment.amazonComprehend(analyzedSentiment);//テキストをamazon comprehendへ
+		playService.insert(play);                                    //DBへinsert
 		model.addAttribute("analyzedSentiment", analyzedSentiment);
 		model.addAttribute("score", score);
-		session.invalidate();                                                  //セッションを切断
+		session.invalidate();                                        //セッションを切断
 		return "result";
 	}
 
