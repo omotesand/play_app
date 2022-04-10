@@ -12,7 +12,6 @@ public interface PlayDao {
 
 	void insert(Play play);
 
-	//List<Map<String, Object>> findScore();
 	//BigDecimal[] findScore();
-	List<Play> findScore();
+	List<Play> findRank();
 }

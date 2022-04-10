@@ -1,6 +1,5 @@
 package app.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +36,20 @@ public class PlayService {
 	/*
 	 * inputsテーブルからスコアのListを取得するメソッド
 	 */
-	public List<BigDecimal> findScore() {
-		//List<Map<String, Object>> dbScoreList = dao.findScore();
-		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
-		List<BigDecimal> scoreList   = new ArrayList<BigDecimal>(); //BigDecimal型の空Listを用意
-		for(int i = 0; i < 3; i++) {
-			//Play play = new Play();
-			scoreList.add(dbScoreList.get(i).getScore());           //List<Play>型オブジェクトからスコアを取得
+//	public List<BigDecimal> findRank() {
+	public List<Play> findRank() {
+		List<Play> dbSelectedList = dao.findRank();
+		List<Play> showResultList = new ArrayList<Play>();
+//		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
+//		List<BigDecimal> scoreList   = new ArrayList<BigDecimal>(); //BigDecimal型の空Listを用意
+		for(int i = 0; i < 5; i++) {
+			Play play = new Play();
+			play.setInput(dbSelectedList.get(i).getInput());
+			play.setScore(dbSelectedList.get(i).getScore());
+			showResultList.add(play);
+//			scoreList.add(dbList.get(i).getScore());           //List<Play>型オブジェクトからスコアを取得
 		}
-		return scoreList;
+		return showResultList;
 	}
 
 }

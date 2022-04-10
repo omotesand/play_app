@@ -1,6 +1,7 @@
 package app.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -73,10 +74,8 @@ public class PlayController {
 			RedirectAttributes redirectAttributes
 			) {
 		if (!result.hasErrors()) {
-			//DBへ投稿文章を登録する処理を追記
-			//redirectAttributes.addFlashAttribute("sentimentType", playForm.getSentimentType()); //感情タイプの選択をフラッシュスコープへ格納
-			//redirectAttributes.addFlashAttribute("input",         playForm.getInput()        ); //フォームへの投稿をフラッシュスコープへ格納
-			redirectAttributes.addFlashAttribute("playForm", playForm);
+			//redirectAttributes.addFlashAttribute("playForm", playForm); //フォームオブジェクトをフラッシュスコープへ格納
+			session.setAttribute("playForm", playForm);
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
@@ -91,7 +90,7 @@ public class PlayController {
 	public String resultPage(
 			//@ModelAttribute("sentimentType") int    sentimentType,   //viewで選択した感情タイプをcontrollerで取得
 			//@ModelAttribute("input")         String input,           //view(フォームへの投稿)をcontrollerで取得
-			@ModelAttribute("playForm") PlayForm playForm,
+			//@ModelAttribute("playForm") PlayForm playForm,  //フラッシュスコープのplayFormを引数で受け取る
 			Model model) {
 		//-----セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）-----
 		Play challenges = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
@@ -99,10 +98,11 @@ public class PlayController {
 		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
 
 		//-----Amazon Comprehendで感情分析する-----
+		PlayForm playForm = (PlayForm)session.getAttribute("playForm");
 		int    analyzedSentimentType = playForm.getSentimentType();            //フォームで選択した感情タイプを取得
 		String analyzedSentimentText = challenge + playForm.getInput();        //「お題」＋「投稿」のテキスト
-		BigDecimal score
-		= detectSentiment.amazonComprehend(analyzedSentimentType, analyzedSentimentText);//Amazon Comprehendで感情分析スコア算出
+		BigDecimal score = detectSentiment
+				.amazonComprehend(analyzedSentimentType, analyzedSentimentText);//Amazon Comprehendで感情分析スコア算出
 
 		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
 		Play play = new Play();
@@ -115,7 +115,7 @@ public class PlayController {
 		playService.insert(play);                                    //DBへinsert
 		model.addAttribute("analyzedSentimentText", analyzedSentimentText);
 		model.addAttribute("score", score);
-		session.invalidate();                                        //セッションを切断
+		//session.invalidate();                                        //セッションを切断
 		return "result";
 	}
 
@@ -124,12 +124,26 @@ public class PlayController {
 	 */
 	@GetMapping("/chart")
 	public String showRankingByChart(Model model) {
-		String[] label = {"a", "b", "c"};
+		//String[] label = {"a", "b", "c"};
 		//BigDecimal[] foo = {BigDecimal.valueOf(0.97), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
-		List<BigDecimal> scoreList  = playService.findScore();                             //DBからスコアのListを取得
-		BigDecimal[]     scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]); //BigDecimal型の配列に変換
-		model.addAttribute("label", label);
-		model.addAttribute("scoreArray", scoreArray);
+		Play challenges = (Play)session.getAttribute("challenges");
+		PlayForm playForm = (PlayForm)session.getAttribute("playForm");
+		Play play = new Play();
+		play.setCurrentChallengeId(challenges.getChallengeId());
+		play.setSentimentType(playForm.getSentimentType());
+
+		List<Play> showResultList  = playService.findRank();
+		List<String> inputList = new ArrayList<String>();
+		List<BigDecimal> scoreList = new ArrayList<BigDecimal>();
+		for(int i = 0; i < 5; i++) {
+			inputList.add(showResultList.get(i).getInput());
+			scoreList.add(showResultList.get(i).getScore());
+		}
+//		BigDecimal[]     scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]); //BigDecimal型の配列に変換
+		String[]     inputArray = inputList.toArray(new String    [inputList.size()]);
+		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
+		model.addAttribute("inputArray", inputArray);//ラベル
+		model.addAttribute("scoreArray", scoreArray);//値
 		return "chart";
 	}
 }

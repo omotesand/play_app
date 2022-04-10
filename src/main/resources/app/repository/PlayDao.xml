@@ -15,7 +15,9 @@
    			VALUES(#{currentChallengeId}, #{sentimentType}, #{input}, #{score});
    	</insert>
 
-   	<select id="findScore" resultType="app.entity.Play">
-		SELECT score FROM inputs
+   	<select id="findRank" resultType="app.entity.Play">
+		SELECT input, score FROM inputs
+			WHERE current_challenge_id = #{currentChallengeId} AND sentiment_type = #{sentimentType}
+			ORDER BY score DESC limit 5;
    	</select>
 </mapper>
