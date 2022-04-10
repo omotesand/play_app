@@ -75,7 +75,7 @@ public class PlayController {
 			) {
 		if (!result.hasErrors()) {
 			//redirectAttributes.addFlashAttribute("playForm", playForm); //フォームオブジェクトをフラッシュスコープへ格納
-			session.setAttribute("playForm", playForm);
+			session.setAttribute("playForm", playForm); //フォームオブジェクトをセッションへ格納
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
@@ -88,17 +88,15 @@ public class PlayController {
 	 */
 	@GetMapping("/result")
 	public String resultPage(
-			//@ModelAttribute("sentimentType") int    sentimentType,   //viewで選択した感情タイプをcontrollerで取得
-			//@ModelAttribute("input")         String input,           //view(フォームへの投稿)をcontrollerで取得
 			//@ModelAttribute("playForm") PlayForm playForm,  //フラッシュスコープのplayFormを引数で受け取る
 			Model model) {
 		//-----セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）-----
-		Play challenges = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
-		int    challengeId = challenges.getChallengeId();          //challengesテーブルのレコードからお題IDを取得
-		String challenge   = challenges.getChallenge();            //challengesテーブルのレコードからお題のテキストを取得
+		Play     challenges  = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
+		int      challengeId = challenges.getChallengeId();             //challengesテーブルのレコードからお題IDを取得
+		String   challenge   = challenges.getChallenge();               //challengesテーブルのレコードからお題のテキストを取得
+		PlayForm playForm    = (PlayForm)session.getAttribute("playForm");//セッションに保存されたフォームオブジェクトを取得
 
 		//-----Amazon Comprehendで感情分析する-----
-		PlayForm playForm = (PlayForm)session.getAttribute("playForm");
 		int    analyzedSentimentType = playForm.getSentimentType();            //フォームで選択した感情タイプを取得
 		String analyzedSentimentText = challenge + playForm.getInput();        //「お題」＋「投稿」のテキスト
 		BigDecimal score = detectSentiment
@@ -106,16 +104,15 @@ public class PlayController {
 
 		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
 		Play play = new Play();
-		play.setCurrentChallengeId(challengeId);            //inputsテーブルのcurrent_challenge_idに値をセット
-		play.setSentimentType(playForm.getSentimentType()); //FormからEntityへ感情タイプの詰め替え
-		play.setInput(playForm.getInput());                 //FormからEntityへ投稿内容の詰め替え
-		play.setScore(score);                               //感情分析スコアをセット
+		play.setCurrentChallengeId(challengeId);      //inputsテーブルのcurrent_challenge_idに値をセット
+		play.setSentimentType(analyzedSentimentType); //FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());           //FormからEntityへ投稿内容の詰め替え
+		play.setScore(score);                         //感情分析スコアをセット
 
 		//-----最後まとめ-----
-		playService.insert(play);                                    //DBへinsert
+		playService.insert(play); //DBへinsert
 		model.addAttribute("analyzedSentimentText", analyzedSentimentText);
 		model.addAttribute("score", score);
-		//session.invalidate();                                        //セッションを切断
 		return "result";
 	}
 
@@ -124,26 +121,34 @@ public class PlayController {
 	 */
 	@GetMapping("/chart")
 	public String showRankingByChart(Model model) {
-		//String[] label = {"a", "b", "c"};
-		//BigDecimal[] foo = {BigDecimal.valueOf(0.97), BigDecimal.valueOf(0.85), BigDecimal.valueOf(0.61)};
-		Play challenges = (Play)session.getAttribute("challenges");
-		PlayForm playForm = (PlayForm)session.getAttribute("playForm");
+		//-----セッションの値をEntityに詰める-----
+		Play     challenges = (Play)session.getAttribute("challenges");   //セッションに保存されたchallengesオブジェクトを取得
+		PlayForm playForm   = (PlayForm)session.getAttribute("playForm"); //セッションに保存されたplayFormオブジェクトを取得
 		Play play = new Play();
-		play.setCurrentChallengeId(challenges.getChallengeId());
-		play.setSentimentType(playForm.getSentimentType());
+		play.setCurrentChallengeId(challenges.getChallengeId());          //お題IDをEntityへ詰める
+		play.setSentimentType(playForm.getSentimentType());               //感情タイプをEntityへ詰める
 
-		List<Play> showResultList  = playService.findRank();
-		List<String> inputList = new ArrayList<String>();
-		List<BigDecimal> scoreList = new ArrayList<BigDecimal>();
+		//-----DBからスコア上位を取得-----
+		List<Play> showResultList  = playService.findRank(play);
+
+		//-----DBから取得した値を詰めるためのリストをつくる-----
+		List<String>     inputList = new ArrayList<String>();     //投稿を格納する空リストを生成
+		List<BigDecimal> scoreList = new ArrayList<BigDecimal>(); //スコアを格納する空リストを生成
+
+		//-----DBから取得した値を空リストに詰める-----
 		for(int i = 0; i < 5; i++) {
 			inputList.add(showResultList.get(i).getInput());
 			scoreList.add(showResultList.get(i).getScore());
 		}
-//		BigDecimal[]     scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]); //BigDecimal型の配列に変換
+
+		//-----値を詰めたリストを配列に変換-----
 		String[]     inputArray = inputList.toArray(new String    [inputList.size()]);
 		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
-		model.addAttribute("inputArray", inputArray);//ラベル
-		model.addAttribute("scoreArray", scoreArray);//値
+
+		//-----最後まとめ-----
+		model.addAttribute("inputArray", inputArray); //グラフのラベル（縦軸）
+		model.addAttribute("scoreArray", scoreArray); //スコア（横軸）
+		session.invalidate();                         //セッションを切断
 		return "chart";
 	}
 }

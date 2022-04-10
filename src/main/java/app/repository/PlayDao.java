@@ -13,5 +13,5 @@ public interface PlayDao {
 	void insert(Play play);
 
 	//BigDecimal[] findScore();
-	List<Play> findRank();
+	List<Play> findRank(Play play);
 }

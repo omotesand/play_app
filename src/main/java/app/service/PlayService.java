@@ -37,16 +37,17 @@ public class PlayService {
 	 * inputsテーブルからスコアのListを取得するメソッド
 	 */
 //	public List<BigDecimal> findRank() {
-	public List<Play> findRank() {
-		List<Play> dbSelectedList = dao.findRank();
+	public List<Play> findRank(Play play) {
+//	public int findRank(Play play) {
+		List<Play> dbSelectedList = dao.findRank(play);
 		List<Play> showResultList = new ArrayList<Play>();
 //		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
 //		List<BigDecimal> scoreList   = new ArrayList<BigDecimal>(); //BigDecimal型の空Listを用意
 		for(int i = 0; i < 5; i++) {
-			Play play = new Play();
-			play.setInput(dbSelectedList.get(i).getInput());
-			play.setScore(dbSelectedList.get(i).getScore());
-			showResultList.add(play);
+			Play playFromDB = new Play();
+			playFromDB.setInput(dbSelectedList.get(i).getInput());
+			playFromDB.setScore(dbSelectedList.get(i).getScore());
+			showResultList.add(playFromDB);
 //			scoreList.add(dbList.get(i).getScore());           //List<Play>型オブジェクトからスコアを取得
 		}
 		return showResultList;
