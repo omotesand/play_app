@@ -5,7 +5,14 @@
    		<meta charset="UTF-8">
   	</head>
   	<body>
-   		<h1 th:text="${sentimentAnalyzed}">サンプル</h1>
+  		<div>
+  			<p>あなたの投稿した文章は</p>
+   			<h2 th:text="${analyzedSentiment}">投稿した文章</h2>
+   		</div>
+   		<div>
+  			<p>あなたのスコアは</p>
+   			<h2 th:text="${score}">スコア</h2>
+   		</div>
    		<a type="button" th:href="@{/play/chart}">順位を見る</a>
    		<a type="button" th:href="@{/play}">戻る</a>
   	</body>

@@ -4,6 +4,8 @@
 */
 package app.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -16,8 +18,7 @@ import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 @Service
 public class DetectSentiment {
 
-	public float amazonComprehend(String text) {
-		//String text = "やったあ。接続に成功したぞ。";
+	public BigDecimal amazonComprehend(String text) {
 		Region region = Region.AP_NORTHEAST_1;
 		ComprehendClient comClient = ComprehendClient.builder()
 				.region(region)
@@ -25,12 +26,12 @@ public class DetectSentiment {
 				.build();
 
 		//System.out.println("Calling DetectSentiment");
-		float score = detectSentiments(comClient, text);
+		BigDecimal score = detectSentiments(comClient, text);
 		comClient.close();
 		return score;
 	}
 
-	public static float detectSentiments(ComprehendClient comClient, String text){
+	public static BigDecimal detectSentiments(ComprehendClient comClient, String text){
 
 	try {
 		DetectSentimentRequest detectSentimentRequest = DetectSentimentRequest.builder()
@@ -39,12 +40,12 @@ public class DetectSentiment {
 				.build();
 
 		DetectSentimentResponse detectSentimentResult = comClient.detectSentiment(detectSentimentRequest);
-		return detectSentimentResult.sentimentScore().neutral();
+		return BigDecimal.valueOf(detectSentimentResult.sentimentScore().neutral());
 
 	} catch (ComprehendException e) {
 		System.err.println(e.awsErrorDetails().errorMessage());
 		System.exit(1);
-		return (float)-1.0;
+		return BigDecimal.valueOf(-1.0);
 		}
 	}
 }

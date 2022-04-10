@@ -93,7 +93,6 @@ public class PlayController {
 			//@ModelAttribute("input")         String input,           //view(フォームへの投稿)をcontrollerで取得
 			@ModelAttribute("playForm") PlayForm playForm,
 			Model model) {
-		//float score = detectSentiment.amazonComprehend(text);
 		//-----セッションの値を取り出す処理（challengeはテーブル名ではなくPlay型のオブジェクトであることに注意）-----
 		Play challenges = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
 		int    challengeId = challenges.getChallengeId();          //challengesテーブルのレコードからお題IDを取得
@@ -107,10 +106,12 @@ public class PlayController {
 		play.setScore(BigDecimal.valueOf(0.57));
 
 		//-----最後まとめ-----
-		playService.insert(play);                                  //DBへinsert
-		String sentimentAnalyzed = challenge + playForm.getInput();//「お題のテキスト」＋「フォームへの投稿」
-		model.addAttribute("sentimentAnalyzed", sentimentAnalyzed);
-		session.invalidate();                                      //セッションを切断
+		playService.insert(play);                                              //DBへinsert
+		String analyzedSentiment = challenge + playForm.getInput();            //「お題」＋「投稿」のテキスト
+		BigDecimal score = detectSentiment.amazonComprehend(analyzedSentiment);//テキストをamazon comprehendへ
+		model.addAttribute("analyzedSentiment", analyzedSentiment);
+		model.addAttribute("score", score);
+		session.invalidate();                                                  //セッションを切断
 		return "result";
 	}
 
