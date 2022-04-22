@@ -54,10 +54,16 @@ public class PlayController {
 	 */
 	@GetMapping("/form")
 	public String formPage(PlayForm playForm, Model model) {
-		Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
-		session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
+		//使わない
+		//Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
+
+		List<Play> challengeList = playService.findAll();
+
+		//使わない
+		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
+
 		model.addAttribute("title", "文章を入力してください");
-		model.addAttribute("play", play);
+		model.addAttribute("challengeList", challengeList);
 		return "form";
 	}
 

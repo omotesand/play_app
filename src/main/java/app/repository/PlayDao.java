@@ -8,7 +8,10 @@ import app.entity.Play;
 
 @Mapper
 public interface PlayDao {
-	Play findChallenge();
+	//使わない
+	//Play findChallenge();
+
+	List<Play> findAll();
 
 	void insert(Play play);
 

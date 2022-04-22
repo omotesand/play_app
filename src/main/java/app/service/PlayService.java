@@ -22,8 +22,15 @@ public class PlayService {
 	/*
 	 * challengesテーブルからお題をひとつ取得するメソッド
 	 */
-	public Play findChallenge() {
-		return dao.findChallenge();
+//	public Play findChallenge() {
+//		return dao.findChallenge();
+//	}
+
+	/*
+	 * challengesテーブルからお題をひとつ取得するメソッド
+	 */
+	public List<Play> findAll() {
+		return dao.findAll();
 	}
 
 	/*
@@ -38,7 +45,6 @@ public class PlayService {
 	 */
 //	public List<BigDecimal> findRank() {
 	public List<Play> findRank(Play play) {
-//	public int findRank(Play play) {
 		List<Play> dbSelectedList = dao.findRank(play);
 		List<Play> showResultList = new ArrayList<Play>();
 //		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
@@ -48,7 +54,6 @@ public class PlayService {
 			playFromDB.setInput(dbSelectedList.get(i).getInput());
 			playFromDB.setScore(dbSelectedList.get(i).getScore());
 			showResultList.add(playFromDB);
-//			scoreList.add(dbList.get(i).getScore());           //List<Play>型オブジェクトからスコアを取得
 		}
 		return showResultList;
 	}

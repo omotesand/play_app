@@ -12,12 +12,18 @@
   	</div>
   	<!-- お題に続くテキストの入力フォーム -->
   	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
+		<label>お題を選択してください</label>
+  		<select name="currentChallengeId">
+  			<option value="">選択してください</option>
+  			<option th:each="obj : ${challengeList}" value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
+  		</select>
+  		<br>
   		<label>感情のタイプを選択してください</label>
   		<select name="sentimentType">
-  		<option value="">選択してください</option>
-  		<option value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
-  		<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
-  		<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
+  			<option value="">選択してください</option>
+  			<option value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
+  			<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
+  			<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
   		</select>
   		<br>
   		<label for="input-id">お題に続く文章を入力してください</label>
