@@ -6,18 +6,19 @@
  	</head>
  	<body>
  	<h1 th:text="${title}">ようこそ</h1>
-  	<!-- DBからランダムに取得したお題を表示 -->
-  	<div th:object="${play}">
-  		<p th:text="*{challenge}">サンプル</p>
-  	</div>
-  	<!-- お題に続くテキストの入力フォーム -->
+  	<!-- フォーム -->
   	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
+  		<!-- お題全件をプルダウンで表示 -->
 		<label>お題を選択してください</label>
   		<select name="currentChallengeId">
   			<option value="">選択してください</option>
-  			<option th:each="obj : ${challengeList}" value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
+  			<option th:each="challenges : ${challengesList}"
+  					th:value="${challenges.challengeId}"
+  					th:text="${challenges.challenge}">
+  			</option>
   		</select>
   		<br>
+  		<!-- 感情タイプをプルダウンで表示 -->
   		<label>感情のタイプを選択してください</label>
   		<select name="sentimentType">
   			<option value="">選択してください</option>
@@ -26,6 +27,7 @@
   			<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
   		</select>
   		<br>
+  		<!-- 投稿を入力 -->
   		<label for="input-id">お題に続く文章を入力してください</label>
   		<textarea name="input" id="input-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="10" maxlength="120" required></textarea>
   		<div>

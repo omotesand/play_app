@@ -57,13 +57,13 @@ public class PlayController {
 		//使わない
 		//Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
 
-		List<Play> challengeList = playService.findAll();
+		List<Play> challengesList = playService.findAll();
 
 		//使わない
 		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 
 		model.addAttribute("title", "文章を入力してください");
-		model.addAttribute("challengeList", challengeList);
+		model.addAttribute("challengesList", challengesList);
 		return "form";
 	}
 
