@@ -62,7 +62,6 @@ public class PlayController {
 		//使わない
 		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 
-		//session.setAttribute("challengesList", challengesList);
 		model.addAttribute("title", "文章を入力してください");
 		model.addAttribute("challengesList", challengesList);
 		return "form";
@@ -101,25 +100,29 @@ public class PlayController {
 		//Play     challenges  = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
 		//int      challengeId = challenges.getChallengeId();             //challengesテーブルのレコードからお題IDを取得
 		//String   challenge   = challenges.getChallenge();               //challengesテーブルのレコードからお題のテキストを取得
-		PlayForm playForm    = (PlayForm)session.getAttribute("playForm");//セッションに保存されたフォームオブジェクトを取得
+		PlayForm playForm              = (PlayForm)session.getAttribute("playForm");//セッションに保存されたフォームオブジェクトを取得
+		int      analyzedChallengeId   = playForm.getCurrentChallengeId();          //フォームで選択したお題IDを取得
+		int      analyzedSentimentType = playForm.getSentimentType();               //フォームで選択した感情タイプを取得
 
-		//-----Amazon Comprehendで感情分析する-----
-		int    analyzedChallengeId   = playForm.getCurrentChallengeId();//*****追加
-		int    analyzedSentimentType = playForm.getSentimentType();            //フォームで選択した感情タイプを取得
+		//-----セッションの値をEntityに詰める（findByIdのSQLでバインド変数を使うため）-----
 		Play playForFindById = new Play();
 		playForFindById.setCurrentChallengeId(analyzedChallengeId);
-		Play analyzedChallenge = playService.findById(analyzedChallengeId);//*****追加
-		String   challenge   = analyzedChallenge.getChallenge();
-		String analyzedSentimentText = challenge + playForm.getInput();        //「お題」＋「投稿」のテキスト
+
+		//-----フォームで選択されたお題IDに紐づくお題オブジェクトををchallengesテーブルから取得-----
+		Play analyzedChallenge = playService.findById(analyzedChallengeId);
+
+		//-----Amazon Comprehendで感情分析する-----
+		String challenge             = analyzedChallenge.getChallenge();        //お題
+		String analyzedSentimentText = challenge + playForm.getInput();         //「お題」＋「投稿」のテキスト
 		BigDecimal score = detectSentiment
 				.amazonComprehend(analyzedSentimentType, analyzedSentimentText);//Amazon Comprehendで感情分析スコア算出
 
 		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
 		Play playForInsert = new Play();
-		playForInsert.setCurrentChallengeId(analyzedChallengeId);      //inputsテーブルのcurrent_challenge_idに値をセット
-		playForInsert.setSentimentType(analyzedSentimentType); //FormからEntityへ感情タイプの詰め替え
-		playForInsert.setInput(playForm.getInput());           //FormからEntityへ投稿内容の詰め替え
-		playForInsert.setScore(score);                         //感情分析スコアをセット
+		playForInsert.setCurrentChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
+		playForInsert.setSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
+		playForInsert.setInput(playForm.getInput());             //FormからEntityへ投稿内容の詰め替え
+		playForInsert.setScore(score);                           //感情分析スコアをセット
 
 		//-----最後まとめ-----
 		playService.insert(playForInsert); //DBへinsert
@@ -134,10 +137,9 @@ public class PlayController {
 	@GetMapping("/chart")
 	public String showRankingByChart(Model model) {
 		//-----セッションの値をEntityに詰める-----
-		Play     challenges = (Play)session.getAttribute("challenges");   //セッションに保存されたchallengesオブジェクトを取得
 		PlayForm playForm   = (PlayForm)session.getAttribute("playForm"); //セッションに保存されたplayFormオブジェクトを取得
 		Play play = new Play();
-		play.setCurrentChallengeId(challenges.getChallengeId());          //お題IDをEntityへ詰める
+		play.setCurrentChallengeId(playForm.getCurrentChallengeId());     //お題IDをEntityへ詰める
 		play.setSentimentType(playForm.getSentimentType());               //感情タイプをEntityへ詰める
 
 		//-----DBからスコア上位を取得-----
