@@ -13,6 +13,8 @@ public interface PlayDao {
 
 	List<Play> findAll();
 
+	Play findById(int analyzedChallengeId);
+
 	void insert(Play play);
 
 	//BigDecimal[] findScore();

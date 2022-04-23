@@ -8,6 +8,10 @@ import lombok.Data;
 
 @Data
 public class PlayForm {
+	@NotNull(message = "お題を選択してください。")
+	//@Digits(integer = 1, fraction = 0) //整数部1桁、小数部0桁
+	private int currentChallengeId;
+
 	@NotNull(message = "感情のタイプを選択してください。")
 	@Digits(integer = 1, fraction = 0) //整数部1桁、小数部0桁
 	private int sentimentType;

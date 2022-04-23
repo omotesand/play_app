@@ -15,6 +15,11 @@
 		SELECT * FROM challenges
    	</select>
 
+	<select id="findById" resultType="app.entity.Play">
+		SELECT challenge FROM challenges
+			WHERE challenge_id = #{currentChallengeId}
+   	</select>
+
    	<insert id="insert">
    		INSERT INTO inputs(current_challenge_id, sentiment_type, input, score)
    			VALUES(#{currentChallengeId}, #{sentimentType}, #{input}, #{score});

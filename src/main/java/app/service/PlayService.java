@@ -27,10 +27,17 @@ public class PlayService {
 //	}
 
 	/*
-	 * challengesテーブルからお題をひとつ取得するメソッド
+	 * challengesテーブルからお題全件を取得するメソッド
 	 */
 	public List<Play> findAll() {
 		return dao.findAll();
+	}
+
+	/*
+	 * Formで選択したお題IDに合致するお題を取得するメソッド
+	 */
+	public Play findById(int analyzedChallengeId) {
+		return dao.findById(analyzedChallengeId);
 	}
 
 	/*
