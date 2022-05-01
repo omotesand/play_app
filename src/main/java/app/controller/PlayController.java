@@ -45,7 +45,7 @@ public class PlayController {
 	 */
 	@GetMapping
 	public String homePage(Model model) {
-		model.addAttribute("title", "さあ、始めよう");
+		model.addAttribute("title", "ネガポジ バトル");
 		return "home";
 	}
 
