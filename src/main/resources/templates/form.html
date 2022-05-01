@@ -4,17 +4,43 @@
  		<!-- Bootstrap設定 -->
  		<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
    		<title>PlayApp | Form</title>
-   		<meta charset="UTF-8">
+   		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
  	</head>
  	<body>
  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
  		<div class="col text-center">
- 			<a class="navbar-brand" href="#">感情分析AIで遊ぼう</a>
+ 			<a class="navbar-brand" th:href="@{/play}">感情分析AIで遊ぼう</a>
  		</div>
  	</nav>
  	<h1 th:text="${title}">ようこそ</h1>
   	<!-- ----------フォーム---------- -->
   	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
+  		<!-- ----------感情タイプ選択欄---------- -->
+  		<div class="form-group mx-5">
+  			<label>感情のタイプを選択してください</label>
+  			<!--  <select name="sentimentType" class="form-control">
+  				<option value="">選択してください</option>
+  				<option value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
+  				<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
+  				<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
+  			</select>-->
+  			<div><!-- ラジオボタン縦並びのためdivタグで囲む -->
+  				<label>
+  					<input type="radio" name="sentimentType" value="1" required>ポジティブな文章を投稿する
+  				</label>
+  			</div>
+  			<div>
+  				<label>
+  					<input type="radio" name="sentimentType" value="2" required>ニュートラルな文章を投稿する
+  				</label>
+  			</div>
+  			<div>
+  				<label>
+  					<input type="radio" name="sentimentType" value="3" required>ネガティブな文章を投稿する
+  				</label>
+  			</div>
+  		</div>
+  		<br>
   		<!-- ----------お題選択欄---------- -->
   		<div class="form-group mx-5">
 			<label>お題を選択してください</label>
@@ -24,17 +50,6 @@
   						th:value="${challenges.challengeId}"
   						th:text="${challenges.challenge}">
   				</option>
-  			</select>
-  		</div>
-  		<br>
-  		<!-- ----------感情タイプ選択欄---------- -->
-  		<div class="form-group mx-5">
-  			<label>感情のタイプを選択してください</label>
-  			<select name="sentimentType" class="form-control">
-  				<option value="">選択してください</option>
-  				<option value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
-  				<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
-  				<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
   			</select>
   		</div>
   		<br>
@@ -48,9 +63,10 @@
   			<button type="submit" class="btn btn-primary">投稿</button>
   		</div>
   	</form>
+
   	<!-- 別のお題を表示するリンク
-  	<a type="button" th:href="@{/play/form}">別のお題</a>
-  	 -->
+  	<a type="button" th:href="@{/play/form}">別のお題</a>-->
+
   	 <!-- ----------Bootstrap設定---------- -->
 	<script th:href="@{/webjars/jquery/3.3.1/js/jquery.min.js}"></script>
 	<script th:href="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
