@@ -62,7 +62,7 @@ public class PlayController {
 		//使わない
 		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 
-		model.addAttribute("title", "文章を入力してください");
+		model.addAttribute("title", "お題に続く文章を投稿して感情分析しよう！");
 		model.addAttribute("challengesList", challengesList);
 		return "form";
 	}
