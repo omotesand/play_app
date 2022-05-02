@@ -144,6 +144,10 @@ public class PlayController {
 
 		//-----DBからスコア上位を取得-----
 		List<Play> showResultList  = playService.findRank(play);
+//		String testInput = showResultList.get(0).getInput();
+//		BigDecimal testScore = showResultList.get(0).getScore();
+//		model.addAttribute("testInput", testInput);
+//		model.addAttribute("testScore", testScore);
 
 		//-----DBから取得した値を詰めるためのリストをつくる-----
 		List<String>     inputList = new ArrayList<String>();     //投稿を格納する空リストを生成

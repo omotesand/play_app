@@ -55,23 +55,30 @@ public class PlayService {
 	public List<Play> findRank(Play play) {
 		List<Play> dbSelectedList = dao.findRank(play);
 		List<Play> showResultList = new ArrayList<Play>();
-//		List<Play>       dbScoreList = dao.findScore();             //DBからList<Play>型オブジェクトを取得
 //		List<BigDecimal> scoreList   = new ArrayList<BigDecimal>(); //BigDecimal型の空Listを用意
 
-		//-----inputsテーブルから上位5位の投稿とスコアを取得-----
-		for(int i = 0; i < 5; i++) {
-			Play playFromDB = new Play();
-			String dbRegisteredInput = dbSelectedList.get(i).getInput();     //第i位の投稿文章を取得
-			BigDecimal dbRegisteredScore = dbSelectedList.get(i).getScore(); //第i位のスコアを取得
-			//-----上位5位の内容をEntityへ詰める（上位5位がなければスコア"0"扱い-----）
-			if(dbRegisteredInput != null && dbRegisteredScore != null) {     //投稿・スコアともに"0"でなければ
-				playFromDB.setInput(dbSelectedList.get(i).getInput());
-				playFromDB.setScore(dbSelectedList.get(i).getScore());
-			}else {
-				playFromDB.setInput("登録なし");
-				playFromDB.setScore(BigDecimal.valueOf(0));
+		//-----inputsテーブルから取得したスコアが5つの場合-----
+		if(dbSelectedList.size() >= 5) {
+			for(int i = 0; i < 5; i++) {
+				Play playForTop5 = new Play();                   //List（参照型）にaddするため、forループ毎にPlayをnewする
+				playForTop5.setInput((String)dbSelectedList.get(i).getInput());
+				playForTop5.setScore((BigDecimal)dbSelectedList.get(i).getScore());
+				showResultList.add(playForTop5);
 			}
-			showResultList.add(playFromDB);
+		//-----inputsテーブルから取得したスコアが5つに満たない場合-----
+		}else{
+			for(int i = 0; i < dbSelectedList.size(); i++) {     //取得した数だけリストにaddする
+				Play playForTop1to4 = new Play();                //List（参照型）にaddするため、forループ毎にPlayをnewする
+				playForTop1to4.setInput((String)dbSelectedList.get(i).getInput());
+				playForTop1to4.setScore((BigDecimal)dbSelectedList.get(i).getScore());
+				showResultList.add(playForTop1to4);
+			}
+			for(int i = 0; i < 5 - dbSelectedList.size(); i++) { //5つに満たないぶんは0埋めする
+				Play playFor0padding = new Play();               //List（参照型）にaddするため、forループ毎にPlayをnewする
+				playFor0padding.setInput("登録なし");
+				playFor0padding.setScore(BigDecimal.valueOf(0));
+				showResultList.add(playFor0padding);
+			}
 		}
 		return showResultList;
 	}
