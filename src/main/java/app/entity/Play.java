@@ -17,7 +17,8 @@ public class Play {
 	private String     input;
 	private BigDecimal score;
 
-	private int        yourRank; //スコア順位取得時にSQLのASで作成
+	private int        yourRank;  //スコア順位取得時にSQLのASで作成
+	private int        totalCount;//スコア順位取得時にSQLのASで作成
 //	private LocalDateTime created_at;
 
 	//sentimentテーブル

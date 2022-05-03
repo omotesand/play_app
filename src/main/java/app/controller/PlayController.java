@@ -117,7 +117,7 @@ public class PlayController {
 		String analyzedSentimentText = challenge + playForm.getInput();         //「お題」＋「投稿」のテキスト
 		BigDecimal score = detectSentiment
 				.amazonComprehend(analyzedSentimentType, analyzedSentimentText) //Amazon Comprehendで感情分析スコア算出
-				.setScale(3, RoundingMode.HALF_UP);                             //小数第3位四捨五入
+				.setScale(3, RoundingMode.HALF_UP);                             //小数第4位四捨五入
 
 		//-----chart.htmlで順位表示のSQLを使うため、セッションに保存-----
 		session.setAttribute("score", score);
@@ -149,9 +149,10 @@ public class PlayController {
 		play.setSentimentType(playForm.getSentimentType());               //感情タイプをEntityへ詰める
 		play.setScore(score);                                             //スコアをEntityへ詰める
 
-		//-----DBからスコア上位を取得-----
-		List<Play> showResultList  = playService.findRank(play); //スコア上位5位のリストを取得
-		Play yourRank = playService.findYourRank(play);          //スコアの順位を取得
+		//-----SQL発行してDBからデータ取得-----
+		List<Play> showResultList = playService.findRank(play);     //スコア上位5位のリストを取得
+		Play       yourRank       = playService.findYourRank(play); //スコアの順位を取得
+		Play       totalCount    = playService.findTotalCount(play);//投稿した部門のレコード総数取得
 
 		//-----DBから取得した値を詰めるためのリストをつくる-----
 		List<String>     inputList = new ArrayList<String>();     //投稿を格納する空リストを生成
@@ -168,12 +169,11 @@ public class PlayController {
 		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
 
 		//-----最後まとめ-----
-		model.addAttribute("inputArray", inputArray); //グラフのラベル（縦軸）
-		model.addAttribute("scoreArray", scoreArray); //スコア（横軸）
-		model.addAttribute("id", playForm.getCurrentChallengeId()); //あとで消す
-		model.addAttribute("type", playForm.getSentimentType()); //あとで消す
-		model.addAttribute("yourRank", yourRank.getYourRank()); //あとで消す
-		session.invalidate();                         //セッションを切断
+		model.addAttribute("yourRank", yourRank.getYourRank());      //スコアの順位
+		model.addAttribute("totalCount", totalCount.getTotalCount());//投稿部門のレコード総数
+		model.addAttribute("inputArray", inputArray);                //グラフのラベル（縦軸）
+		model.addAttribute("scoreArray", scoreArray);                //スコア（横軸）
+		session.invalidate();                                        //セッションを切断
 		return "chart";
 	}
 }

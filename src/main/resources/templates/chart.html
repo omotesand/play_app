@@ -5,38 +5,39 @@
    		<meta charset="UTF-8">
   	</head>
   	<body>
-		<h4 th:text="${id}">スコア</h4>
-		<h4 th:text="${type}">スコア</h4>
-  		<h4 th:text="${yourRank}">スコア</h4>
 
-     	<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
-   		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-   		<script type="text/javascript" th:inline="javascript">
-   			const ctx = document.getElementById("sentimentScoreChart");
-   			const barChart = new Chart(ctx, {
-   				type: "bar",
-   				data: {
-   					labels: [[${inputArray}]],
-   					datasets: [{
-   						label: "test",
-   						data: [[${scoreArray}]],
-   						backgroundColor: "rgba(219,39,91,0.5)"
-   					}]
-   				},
-   				options: {
-   					title: {
-   						display: true,
-   						text: "test-title"
-   					},
-   					responsive: true,
-   					//maintainAspectRatio: false,
-   					indexAxis: "y",
-   					layout: {
-   						padding: 20
-   					}
-   				}
-   			});
-   		</script>
-   		<a type="button" th:href="@{/play/form}">投稿する</a>
+		<h4 class="rank1" th:text="${yourRank}">順位</h4>
+		<h4 class="rank2">/</h4>
+		<h4 class="rank3" th:text="${totalCount}">レコード総数</h4>
+
+  	<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		const ctx = document.getElementById("sentimentScoreChart");
+		const barChart = new Chart(ctx, {
+			type: "bar",
+			data: {
+				labels: [[${inputArray}]],
+				datasets: [{
+					label: "test",
+					data: [[${scoreArray}]],
+					backgroundColor: "rgba(219,39,91,0.5)"
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: "test-title"
+				},
+				responsive: true,
+				//maintainAspectRatio: false,
+				indexAxis: "y",
+				layout: {
+					padding: 20
+				}
+			}
+		});
+	</script>
+	<a type="button" th:href="@{/play/form}">投稿する</a>
   	</body>
 </html>

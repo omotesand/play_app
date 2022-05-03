@@ -21,4 +21,6 @@ public interface PlayDao {
 	List<Play> findRank(Play play);
 
 	Play findYourRank(Play play);
+
+	Play findTotalCount(Play play);
 }

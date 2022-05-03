@@ -90,4 +90,10 @@ public class PlayService {
 		return dao.findYourRank(play);
 	}
 
+	/*
+	 * 投稿部門のレコード総数を取得するメソッド
+	 */
+	public Play findTotalCount(Play play) {
+		return dao.findTotalCount(play);
+	}
 }

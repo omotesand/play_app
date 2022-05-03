@@ -39,4 +39,11 @@
 					AND sentiment_type = #{sentimentType}
 					AND score > #{score};
    	</select>
+
+   	<select id="findTotalCount" resultType="app.entity.Play">
+		SELECT COUNT(*) AS total_count
+			FROM inputs
+			WHERE current_challenge_id = #{currentChallengeId}
+					AND sentiment_type = #{sentimentType};
+   	</select>
 </mapper>
