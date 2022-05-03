@@ -19,4 +19,6 @@ public interface PlayDao {
 
 	//BigDecimal[] findScore();
 	List<Play> findRank(Play play);
+
+	Play findYourRank(Play play);
 }

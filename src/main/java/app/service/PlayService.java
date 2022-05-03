@@ -83,4 +83,11 @@ public class PlayService {
 		return showResultList;
 	}
 
+	/*
+	 * スコアの順位を取得するメソッド
+	 */
+	public Play findYourRank(Play play) {
+		return dao.findYourRank(play);
+	}
+
 }

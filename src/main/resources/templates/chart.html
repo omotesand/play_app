@@ -5,10 +5,10 @@
    		<meta charset="UTF-8">
   	</head>
   	<body>
-  		<!--
-  		<h4 th:text="${testInput}">スコア</h4>
-  		<h4 th:text="${testScore}">スコア</h4>
-  		-->
+		<h4 th:text="${id}">スコア</h4>
+		<h4 th:text="${type}">スコア</h4>
+  		<h4 th:text="${yourRank}">スコア</h4>
+
      	<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
    		<script type="text/javascript" th:inline="javascript">
