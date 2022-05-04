@@ -10,28 +10,32 @@
   	</head>
   	<body>
   	<!-- ----------ナビゲーションバー---------- -->
- 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ 	<!--  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;">
  		<div class="col text-center">
- 			<a class="navbar-brand" th:href="@{/play}">ネガポジAI診断</a>
+ 			<a class="navbar-brand" th:href="@{/play}">ネガポジAIチェック</a>
  		</div>
- 	</nav>
+ 	</nav>-->
+ 	<header>
+ 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 	</header>
  	<div class="b-color"><!-- 背景色 -->
 	 	<!-- ----------トップタイトル---------- -->
-	   	<h1 th:text="${title}" style="text-align:center">サンプル</h1>
+	   	<h2 th:text="${title}">サンプル</h2>
+	   	<h4>感情分析AIで遊ぼう！</h4>
 	   	<br>
 	   	<!-- ----------アプリ概要説明---------- -->
-	   	<div class="mx-5">
-	   		<h3><u>ネガポジ バトルって？</u></h3>
+	   	<div class="what mx-5">
+	   		<h2><span class="under">どんなアプリ？</span></h2>
 	   		<p>
 	   		お題に続く文章を入力し、どのくらいネガティブorポジティブな文章なのかをAIにスコア判定してもらうアプリです。
 	   		<br>
 	   		よりネガティブorポジティブな文章を作成して、ハイスコアをたたき出しましょう。
 	   		</p>
 	   	</div>
+	   	<br>
 	   	<!-- ----------使い方説明---------- -->
-	   	<div class="mx-5">
-	   		<h3><u>遊び方</u></h3>
-	   		<!--  <div class="ireko">-->
+	   	<div class="what mx-5">
+	   		<h2><span class="under">遊び方</span></h2>
 	   		<ol>
 	   			<li>判定部門を下記3つの中から選択する。</li>
 	   				<ul>
@@ -44,12 +48,14 @@
 	   			<li>投稿ボタンを押してAIにスコア判定してもらう。</li>
 	   			<li>順位を見る。</li>
 	   		</ol>
-	   		<!--  </div>-->
 	   	</div>
 	   	<!-- ----------form.htmlへのリンク---------- -->
-	   	<div class="d-grid col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->
+	   	<!--  <div class="d-grid col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置
 	   		<a class="btn btn-primary" type="button" th:href="@{/play/form}">遊ぶ</a>
-	   	</div>
+	   	</div>-->
+		<div class="center">
+	   		<a class="btn-original" type="button" th:href="@{/play/form}">さっそく遊んでみる</a>
+		</div>
 	   	<br>
 	<!-- ----------フッター---------- -->
    	<footer class="footer" style="text-align: center">

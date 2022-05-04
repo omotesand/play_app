@@ -1,3 +1,18 @@
+/*
+header{
+	position: fixed;
+}
+*/
+
+/*ナビゲーションバー*/
+.nav{
+	background: #008b8b;
+	color: #000000;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
 /*bodyの背景色*/
 .b-color{
 	background: linear-gradient(to bottom right, #df89b5, #bfd9fe);
@@ -8,12 +23,25 @@
 	padding: 10px;
 }
 
+/*下線*/
+.under{
+	/*text-decoration: underline;*/
+	background: linear-gradient(transparent 70%, #ffc037 70%); /*蛍光ペン*/
+}
+
+/*home.html アプリの説明*/
+.what{
+	color: #008b8b;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px silver;
+	padding: 10px 20px 10px 20px;
+}
+
+/*home.html 遊び方*/
 ol{
 	counter-reset: number;
 	list-style-type: none!important;
-	background: #f5faff;
-	border-radius: 8px;
-	box-shadow: 0px 0px 5px; /*右に0px、下に0px、ぼかし5px*/
 	padding: 10px 20px 10px 20px;
 }
 
@@ -45,6 +73,30 @@ ol > li:before{
   	top: 50%;
   	-webkit-transform: translateY(-50%);
   	transform: translateY(-50%);
+}
+
+/*インライン要素センター位置調整*/
+.center{
+	text-align: center;
+}
+
+/*自作ボタン*/
+.btn-original{
+	background: #008b8b;
+	border-bottom: solid 4px #a9a9a9;
+	border-radius: 6px;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 5px 30px;
+	text-decoration: none;
+}
+
+.score{
+	background: #f0f8ff;
+	color: #ff0000;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 /*chart.htmlでスコア順位を表示*/

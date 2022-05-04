@@ -10,19 +10,24 @@
   	</head>
   	<body>
   	<!-- ----------ナビゲーションバー---------- -->
- 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ 	<!--  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
  		<div class="col text-center">
- 			<a class="navbar-brand" th:href="@{/play}">ネガポジAI診断</a>
+ 			<a class="navbar-brand" th:href="@{/play}">ネガポジAIチェック</a>
  		</div>
- 	</nav>
+ 	</nav>-->
+ 	<header>
+ 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 	</header>
  	<div class="b-color"><!-- 背景色 -->
-		<div>
+		<div class="center">
 			<p>あなたの投稿した文章は</p>
-	 		<h2 th:text="${analyzedSentimentText}">投稿した文章</h2>
+	 		<p th:text="${analyzedSentimentText}">投稿した文章</p>
 	 	</div>
-	 	<div>
-			<p>あなたのスコアは</p>
-	 		<h2 th:text="${score}">スコア</h2>
+	 	<br>
+	 	<div class="center">
+			<p>あなたのスコア</p>
+	 		<p class="rank1" th:text="${score}">スコア</p>
+	 		<p class="rank2">/ 100 点</p>
 	 	</div>
 	 	<!-- ----------別画面へのへのリンク---------- -->
 	 	<div class="d-grid gap-2 col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->

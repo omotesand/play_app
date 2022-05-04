@@ -11,11 +11,14 @@
  	</head>
  	<body>
  	<!-- ----------ナビゲーションバー---------- -->
- 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ 	<!--  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
  		<div class="col text-center">
- 			<a class="navbar-brand" th:href="@{/play}">ネガポジAI診断</a>
+ 			<a class="navbar-brand" th:href="@{/play}">ネガポジAIチェック</a>
  		</div>
- 	</nav>
+ 	</nav>-->
+ 	<header>
+ 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 	</header>
 	<div class="b-color"><!-- 背景色 -->
 	 	<!-- ----------アイコン---------- -->
 	 	<h2 th:text="${title}" style="text-align:center">サンプル</h2>
@@ -71,9 +74,12 @@
 	  		</div>
 	  		<br>
 	  		<!-- ----------投稿ボタン---------- -->
-	  		<div class="d-grid col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->
+	  		<!--  <div class="d-grid col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置
 	  			<button class="btn btn-primary" type="submit">投稿する</button>
-	  		</div>
+	  		</div>-->
+	  		<div class="center">
+	   			<button class="btn-original" type="submit">ネガポジ判定する</button>
+			</div>
 	  		<br>
 	  	</form>
 	<!-- ----------フッター---------- -->
