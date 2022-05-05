@@ -13,6 +13,6 @@ public class PlayForm {
 	private int yourChallengeId;
 
 	@NotNull(message = "投稿する文章を入力してください。")
-	@Size(min = 10, max = 120, message = "10文字以上120文字以下で入力してください。")
+	@Size(min = 15, max = 50, message = "15文字以上50文字以下で入力してください。")
 	private String input;
 }

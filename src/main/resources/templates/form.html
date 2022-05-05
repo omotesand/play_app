@@ -57,7 +57,7 @@
 	  		<br>-->
 	  		<!-- ----------お題選択欄---------- -->
 	  		<div class="form-group mx-5">
-				<label>お題を選択してください</label>
+				<label>お題を選択しよう</label>
 	  			<select name="yourChallengeId" class="form-control">
 	  				<option value="">選択してください</option>
 	  				<option th:each="challenges : ${challengesList}"
@@ -69,8 +69,10 @@
 	  		<br>
 	  		<!-- ----------回答入力欄---------- -->
 	  		<div class="form-group mx-5">
-	  			<label for="input-id">お題に続く文章を入力してください</label>
-	  			<textarea name="input" class="form-control" id="input-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="10" maxlength="120" required></textarea>
+	  			<label for="input-id">お題に続く文章を作成しよう</label>
+	  			<p>注1）15文字以上50文字以内で入力してください。</p>
+	  			<p>注2）できる限り日本語で入力してください。日本語以外が混じると正常に分析できない可能性があります。</p>
+	  			<textarea name="input" class="form-control" id="input-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="15" maxlength="50" required></textarea>
 	  		</div>
 	  		<br>
 	  		<!-- ----------投稿ボタン---------- -->

@@ -35,7 +35,7 @@
 	 	<div class="center result-main">
 	 		<p>あなたの順位</p>
 	 		<p class="inline1">第 </p>
-			<p class="inline2" th:text="${yourRank}">順位</p>
+			<p class="inline2 result-char" th:text="${yourRank}">順位</p>
 			<p class="inline3">位 / </p>
 			<p class="inline4" th:text="${totalCount}">レコード総数</p>
 			<p class="inline5">人中</p>
@@ -70,8 +70,8 @@
 			});
 		</script>
 	 	<!-- ----------別画面へのへのリンク---------- -->
-	 	<div class="d-grid gap-2 col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->
-	 		<a class="btn btn-secondary" type="button" th:href="@{/play/form}">別の部門・お題に挑戦する</a>
+	 	<div class="center">
+	 		<a class="link-original" type="button" th:href="@{/play/sentiment}">部門選択に戻る</a>
 	 	</div>
 		<br>
 	<!-- ----------フッター---------- -->

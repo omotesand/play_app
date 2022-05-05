@@ -101,8 +101,21 @@ public class PlayController {
 		//-----ユーザーが選択した感情部門で事前に用意しているお題一覧を取得-----
 		List<Play> challengesList = playService.findAllForSelectedSentimentType(analyzedSentimentType);
 
+		String title = "";
+		switch(analyzedSentimentType) {
+		case 1:
+			title = "ポジティブ部門";
+			break;
+		case 2:
+			title = "ニュートラル部門";
+			break;
+		case 3:
+			title = "ネガティブ部門";
+			break;
+		}
+
 		//-----最後まとめ-----
-		model.addAttribute("title", "お題に続く文章を投稿して感情分析しよう！");
+		model.addAttribute("title", title);
 		model.addAttribute("challengesList", challengesList);
 		return "form";
 	}
