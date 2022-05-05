@@ -11,39 +11,40 @@
    	</select>
    	-->
 
-   	<select id="findAll" resultType="app.entity.Play">
+   	<select id="findAllForSelectedSentimentType" resultType="app.entity.Play">
 		SELECT * FROM challenges
+			WHERE sentiment_type = #{yourSentimentType};
    	</select>
 
 	<select id="findById" resultType="app.entity.Play">
 		SELECT challenge FROM challenges
-			WHERE challenge_id = #{currentChallengeId}
+			WHERE challenge_id = #{yourChallengeId};
    	</select>
 
    	<insert id="insert">
-   		INSERT INTO inputs(current_challenge_id, sentiment_type, input, score)
-   			VALUES(#{currentChallengeId}, #{sentimentType}, #{input}, #{score});
+   		INSERT INTO inputs(your_challenge_id, your_sentiment_type, input, score)
+   			VALUES(#{yourChallengeId}, #{yourSentimentType}, #{input}, #{score});
    	</insert>
 
    	<select id="findRank" resultType="app.entity.Play">
 		SELECT input, score FROM inputs
-			WHERE current_challenge_id = #{currentChallengeId}
-					AND sentiment_type = #{sentimentType}
+			WHERE your_challenge_id = #{yourChallengeId}
+					AND your_sentiment_type = #{yourSentimentType}
 			ORDER BY score DESC limit 5;
    	</select>
 
    	<select id="findYourRank" resultType="app.entity.Play">
 		SELECT COUNT(*)+1 AS your_rank
 			FROM inputs
-			WHERE current_challenge_id = #{currentChallengeId}
-					AND sentiment_type = #{sentimentType}
+			WHERE your_challenge_id = #{yourChallengeId}
+					AND your_sentiment_type = #{yourSentimentType}
 					AND score > #{score};
    	</select>
 
    	<select id="findTotalCount" resultType="app.entity.Play">
 		SELECT COUNT(*) AS total_count
 			FROM inputs
-			WHERE current_challenge_id = #{currentChallengeId}
-					AND sentiment_type = #{sentimentType};
+			WHERE your_challenge_id = #{yourChallengeId}
+					AND your_sentiment_type = #{yourSentimentType};
    	</select>
 </mapper>

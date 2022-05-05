@@ -28,10 +28,10 @@ public class PlayService {
 //	}
 
 	/*
-	 * challengesテーブルからお題全件を取得するメソッド
+	 * challengesテーブルからユーザーが選択した感情タイプのお題全件を取得するメソッド
 	 */
-	public List<Play> findAll() {
-		return dao.findAll();
+	public List<Play> findAllForSelectedSentimentType(int analyzedSentimentType) {
+		return dao.findAllForSelectedSentimentType(analyzedSentimentType);
 	}
 
 	/*

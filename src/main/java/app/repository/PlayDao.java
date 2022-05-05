@@ -11,7 +11,7 @@ public interface PlayDao {
 	//使わない
 	//Play findChallenge();
 
-	List<Play> findAll();
+	List<Play> findAllForSelectedSentimentType(int analyzedSentimentType);
 
 	Play findById(int analyzedChallengeId);
 

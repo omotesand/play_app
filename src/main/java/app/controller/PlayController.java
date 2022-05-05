@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.entity.Play;
 import app.form.PlayForm;
+import app.form.TypeForm;
 import app.service.DetectSentiment;
 import app.service.PlayService;
 
@@ -51,18 +52,47 @@ public class PlayController {
 	}
 
 	/*
+	 * 感情タイプ選択画面
+	 */
+	@GetMapping("/sentiment")
+	public String typePage(PlayForm playForm, Model model) {
+		model.addAttribute("title", "感情タイプを選択しよう！");
+		return "chart";
+	}
+
+	/*
+	 * ユーザーが選択した感情タイプによりお題を選別
+	 */
+	@PostMapping("/type")
+	public String selectType(
+			@Valid @ModelAttribute TypeForm typeForm,
+			BindingResult result,
+			Model model,
+			RedirectAttributes redirectAttributes
+			) {
+		if (!result.hasErrors()) {
+			session.setAttribute("typeForm", typeForm); //フォームオブジェクトをセッションへ格納
+			return "redirect:/play/form";
+		} else {
+			model.addAttribute("title", "文章を入力し直してください");
+			return "chart";
+		}
+	}
+
+	/*
 	 * フォーム画面
 	 */
 	@GetMapping("/form")
 	public String formPage(PlayForm playForm, Model model) {
 		//使わない
 		//Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
-
-		List<Play> challengesList = playService.findAll();
-
-		//使わない
 		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 
+		TypeForm typeForm              = (TypeForm)session.getAttribute("typeForm");
+		int      analyzedSentimentType   = typeForm.getYourSentimentType();
+		Play play = new Play();
+		play.setYourSentimentType(analyzedSentimentType);
+		List<Play> challengesList = playService.findAllForSelectedSentimentType(analyzedSentimentType);
 		model.addAttribute("title", "お題に続く文章を投稿して感情分析しよう！");
 		model.addAttribute("challengesList", challengesList);
 		return "form";
@@ -101,13 +131,14 @@ public class PlayController {
 		//Play     challenges  = (Play)session.getAttribute("challenges");//セッションへ保存されたchallengesテーブルのレコードを取得
 		//int      challengeId = challenges.getChallengeId();             //challengesテーブルのレコードからお題IDを取得
 		//String   challenge   = challenges.getChallenge();               //challengesテーブルのレコードからお題のテキストを取得
-		PlayForm playForm              = (PlayForm)session.getAttribute("playForm");//セッションに保存されたフォームオブジェクトを取得
-		int      analyzedChallengeId   = playForm.getCurrentChallengeId();          //フォームで選択したお題IDを取得
-		int      analyzedSentimentType = playForm.getSentimentType();               //フォームで選択した感情タイプを取得
+		TypeForm typeForm              = (TypeForm)session.getAttribute("typeForm");//セッションに保存されたtypeFormオブジェクトを取得
+		PlayForm playForm              = (PlayForm)session.getAttribute("playForm");//セッションに保存されたplayFormオブジェクトを取得
+		int      analyzedSentimentType = typeForm.getYourSentimentType();           //typeFormで選択した感情タイプを取得
+		int      analyzedChallengeId   = playForm.getYourChallengeId();             //playFormで選択したお題IDを取得
 
 		//-----セッションの値をEntityに詰める（findByIdのSQLでバインド変数を使うため）-----
 		Play playForFindById = new Play();
-		playForFindById.setCurrentChallengeId(analyzedChallengeId);
+		playForFindById.setYourChallengeId(analyzedChallengeId);
 
 		//-----フォームで選択されたお題IDに紐づくお題オブジェクトををchallengesテーブルから取得-----
 		Play analyzedChallenge = playService.findById(analyzedChallengeId);
@@ -121,8 +152,8 @@ public class PlayController {
 
 		//-----inputsテーブルへのデータ登録、および順位表示のためEntityに詰める処理-----
 		Play play = new Play();
-		play.setCurrentChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
-		play.setSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
+		play.setYourChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
+		play.setYourSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
 		play.setInput(playForm.getInput());             //FormからEntityへ投稿内容の詰め替え
 		play.setScore(score);                           //感情分析スコアをセット
 

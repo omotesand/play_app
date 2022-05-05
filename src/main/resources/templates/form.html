@@ -30,7 +30,7 @@
 	  	<!-- ----------フォーム---------- -->
 	  	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
 	  		<!-- ----------感情タイプ選択欄---------- -->
-	  		<div class="form-group mx-5">
+	  		<!--  <div class="form-group mx-5">
 	  			<label>感情のタイプを選択してください</label>
 	  			<!--  <select name="sentimentType" class="form-control">
 	  				<option value="">選択してください</option>
@@ -38,7 +38,7 @@
 	  				<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
 	  				<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
 	  			</select>-->
-	  			<div><!-- ラジオボタン縦並びのためdivタグで囲む-->
+	  			<!-- ラジオボタン縦並びのためdivタグで囲む
 	  				<label>
 	  					<input type="radio" name="sentimentType" value="1" required>ポジティブな文章を投稿する
 	  				</label>
@@ -54,7 +54,7 @@
 	  				</label>
 	  			</div>
 	  		</div>
-	  		<br>
+	  		<br>-->
 	  		<!-- ----------お題選択欄---------- -->
 	  		<div class="form-group mx-5">
 				<label>お題を選択してください</label>
