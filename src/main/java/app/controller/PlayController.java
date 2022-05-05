@@ -55,7 +55,7 @@ public class PlayController {
 	 * 感情タイプ選択画面
 	 */
 	@GetMapping("/sentiment")
-	public String typePage(PlayForm playForm, Model model) {
+	public String typePage(TypeForm typeForm, Model model) {
 		model.addAttribute("title", "感情タイプを選択しよう！");
 		return "chart";
 	}
@@ -94,6 +94,7 @@ public class PlayController {
 		play.setYourSentimentType(analyzedSentimentType);
 		List<Play> challengesList = playService.findAllForSelectedSentimentType(analyzedSentimentType);
 		model.addAttribute("title", "お題に続く文章を投稿して感情分析しよう！");
+		model.addAttribute("analyzedSentimentType", analyzedSentimentType);//消す
 		model.addAttribute("challengesList", challengesList);
 		return "form";
 	}

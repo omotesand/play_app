@@ -17,26 +17,12 @@
  	</nav>
  	<div class="b-color"><!-- 背景色 -->
 		<h2 th:text="${title}">サンプル</h2>
- 		<form method="POST" th:action="@{/play/type}" th:object="${playForm}">
- 			<!--  <input type="hidden" name="yourSentimentType" value="1">-->
- 			<label>
-	  			<input type="radio" name="sentimentType" value="1" required>ポジティブな文章を投稿する
-	  		</label>
+ 		<form method="POST" th:action="@{/play/type}" th:object="${typeForm}">
  			<div class="center">
-	   			<button class="btn-original" type="submit">ポジティブ部門</button>
+	   			<button class="btn-original" type="submit" name="yourSentimentType" value="1">ポジティブ部門</button>
+	   			<button class="btn-original" type="submit" name="yourSentimentType" value="3">ネガティブ部門</button>
 			</div>
  		</form>
- 		<form method="POST" th:action="@{/play/type}" th:object="${playForm}">
- 			<input type="hidden" name="sentimentType" value="3">
- 			<div class="center">
-	   			<button class="btn-original" type="submit">ネガティブ部門</button>
-			</div>
- 		</form>
-
-		<!-- ----------別画面へのへのリンク---------- -->
-		<div class="d-grid col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->
-			<a class="btn btn-secondary" type="button" th:href="@{/play/form}">別の部門・お題に挑戦する</a>
-		</div>
 	<!-- ----------フッター---------- -->
 	<footer class="footer" style="text-align: center">
    		<p>&copy; 2022. Sentiment-app.com</p>
