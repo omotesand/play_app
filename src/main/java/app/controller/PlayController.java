@@ -119,40 +119,18 @@ public class PlayController {
 				.amazonComprehend(analyzedSentimentType, analyzedSentimentText) //Amazon Comprehendで感情分析スコア算出
 				.setScale(3, RoundingMode.HALF_UP);                             //小数第4位四捨五入
 
-		//-----chart.htmlで順位表示のSQLを使うため、セッションに保存-----
-		session.setAttribute("score", score);
-
-		//-----inputsテーブルへのデータ登録のためにEntityに詰める処理-----
-		Play playForInsert = new Play();
-		playForInsert.setCurrentChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
-		playForInsert.setSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
-		playForInsert.setInput(playForm.getInput());             //FormからEntityへ投稿内容の詰め替え
-		playForInsert.setScore(score);                           //感情分析スコアをセット
-
-		//-----最後まとめ-----
-		playService.insert(playForInsert); //DBへinsert
-		model.addAttribute("analyzedSentimentText", analyzedSentimentText);
-		model.addAttribute("score", score);
-		return "result";
-	}
-
-	/*
-	 * 投稿結果のランキングをグラフで見る
-	 */
-	@GetMapping("/chart")
-	public String showRankingByChart(Model model) {
-		//-----セッションの値をEntityに詰める-----
-		PlayForm   playForm = (PlayForm)session.getAttribute("playForm"); //セッションに保存されたplayFormオブジェクトを取得
-		BigDecimal score    = (BigDecimal)session.getAttribute("score");  //セッションに保存されたスコアを取得
+		//-----inputsテーブルへのデータ登録、および順位表示のためEntityに詰める処理-----
 		Play play = new Play();
-		play.setCurrentChallengeId(playForm.getCurrentChallengeId());     //お題IDをEntityへ詰める
-		play.setSentimentType(playForm.getSentimentType());               //感情タイプをEntityへ詰める
-		play.setScore(score);                                             //スコアをEntityへ詰める
+		play.setCurrentChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
+		play.setSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());             //FormからEntityへ投稿内容の詰め替え
+		play.setScore(score);                           //感情分析スコアをセット
 
-		//-----SQL発行してDBからデータ取得-----
-		List<Play> showResultList = playService.findRank(play);     //スコア上位5位のリストを取得
-		Play       yourRank       = playService.findYourRank(play); //スコアの順位を取得
-		Play       totalCount    = playService.findTotalCount(play);//投稿した部門のレコード総数取得
+		//-----SQL発行-----
+		playService.insert(play);                                    //DBへinsert
+		List<Play> showResultList = playService.findRank(play);      //スコア上位5位のリストを取得
+		Play       yourRank       = playService.findYourRank(play);  //スコアの順位を取得
+		Play       totalCount     = playService.findTotalCount(play);//投稿した部門のレコード総数取得
 
 		//-----DBから取得した値を詰めるためのリストをつくる-----
 		List<String>     inputList = new ArrayList<String>();     //投稿を格納する空リストを生成
@@ -169,11 +147,13 @@ public class PlayController {
 		BigDecimal[] scoreArray = scoreList.toArray(new BigDecimal[scoreList.size()]);
 
 		//-----最後まとめ-----
-		model.addAttribute("yourRank", yourRank.getYourRank());      //スコアの順位
-		model.addAttribute("totalCount", totalCount.getTotalCount());//投稿部門のレコード総数
-		model.addAttribute("inputArray", inputArray);                //グラフのラベル（縦軸）
-		model.addAttribute("scoreArray", scoreArray);                //スコア（横軸）
-		session.invalidate();                                        //セッションを切断
-		return "chart";
+		model.addAttribute("analyzedSentimentText", analyzedSentimentText); //分析した文章
+		model.addAttribute("score", score);                                 //結果のスコア
+		model.addAttribute("yourRank", yourRank.getYourRank());             //ただいまの順位
+		model.addAttribute("totalCount", totalCount.getTotalCount());       //投稿部門のレコード総数
+		model.addAttribute("inputArray", inputArray);                       //グラフのラベル（縦軸）
+		model.addAttribute("scoreArray", scoreArray);                       //グラフのスコア（横軸）
+		session.invalidate();                                               //セッションを切断
+		return "result";
 	}
 }
