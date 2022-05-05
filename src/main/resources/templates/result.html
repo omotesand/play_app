@@ -50,15 +50,42 @@
 				data: {
 					labels: [[${inputArray}]],
 					datasets: [{
-						label: "test",
+						label: ["test1", "test2", "test3", "test4", "text5"],
 						data: [[${scoreArray}]],
-						backgroundColor: "rgba(219,39,91,0.5)"
+						backgroundColor: [
+							"rgba(255,  0,  0, 0.5)",
+							"rgba(255,215,  0, 0.5)",
+							"rgba(  0,100,  0, 0.5)",
+							"rgba(  0,191,255, 0.5)",
+							"rgba(  0,  0,255, 0.5)"
+						]
 					}]
 				},
 				options: {
-					title: {
-						display: true,
-						text: "test-title"
+					plugins: {
+						//グラフタイトル
+						title: {
+							align: "start",
+							color: "rgba(  0,128,  0, 1.0)",
+							display: true,
+							font: {size: 16},
+							text: "上位5位のスコア"
+						},
+						//凡例
+						legend: {
+							labels: {
+								color: "rgba(0,  0,  0, 1.0)",
+								font: {size: 16}
+							},
+							position: "left"
+						},
+						scales: {
+							y: [{
+								ticks: {
+									autoSkip: true
+								}
+							}]
+						}
 					},
 					responsive: true,
 					//maintainAspectRatio: false,
