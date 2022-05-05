@@ -17,9 +17,15 @@
  	</nav>
  	<div class="b-color"><!-- 背景色 -->
 		<h2 th:text="${title}">サンプル</h2>
+		<!-- ----------部門選択---------- -->
  		<form method="POST" th:action="@{/play/type}" th:object="${typeForm}">
  			<div class="center">
 	   			<button class="btn-original" type="submit" name="yourSentimentType" value="1">ポジティブ部門</button>
+	   		</div>
+	   		<div class="center">
+	   			<button class="btn-original" type="submit" name="yourSentimentType" value="2">ニュートラル部門</button>
+	   		</div>
+	   		<div class="center">
 	   			<button class="btn-original" type="submit" name="yourSentimentType" value="3">ネガティブ部門</button>
 			</div>
  		</form>
