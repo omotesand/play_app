@@ -52,16 +52,18 @@ public class PlayController {
 	}
 
 	/*
-	 * 感情タイプ選択画面
+	 * 感情部門選択画面
 	 */
 	@GetMapping("/sentiment")
 	public String typePage(TypeForm typeForm, Model model) {
 		model.addAttribute("title", "感情タイプを選択しよう！");
-		return "chart";
+		return "sentiment";
 	}
 
 	/*
-	 * ユーザーが選択した感情タイプによりお題を選別
+	 * 感情部門選択のValidation結果による振り分け
+	 * Validation OK：form画面へ
+	 * Validation NG：再度sentiment画面へ
 	 */
 	@PostMapping("/type")
 	public String selectType(
@@ -71,16 +73,16 @@ public class PlayController {
 			RedirectAttributes redirectAttributes
 			) {
 		if (!result.hasErrors()) {
-			session.setAttribute("typeForm", typeForm); //フォームオブジェクトをセッションへ格納
+			session.setAttribute("typeForm", typeForm); //typeFormオブジェクトをセッションへ格納
 			return "redirect:/play/form";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
-			return "chart";
+			return "sentiment";
 		}
 	}
 
 	/*
-	 * フォーム画面
+	 * form画面
 	 */
 	@GetMapping("/form")
 	public String formPage(PlayForm playForm, Model model) {
@@ -88,21 +90,27 @@ public class PlayController {
 		//Play play = playService.findChallenge();  //challengesテーブルのレコードをランダムに一つ取得
 		//session.setAttribute("challenges", play); //challengesテーブルのレコードををセッションへ保存
 
-		TypeForm typeForm              = (TypeForm)session.getAttribute("typeForm");
-		int      analyzedSentimentType   = typeForm.getYourSentimentType();
+		//-----セッションの値を取り出す-----
+		TypeForm typeForm              = (TypeForm)session.getAttribute("typeForm");//typeFormオブジェクトを取得
+		int      analyzedSentimentType = typeForm.getYourSentimentType();           //ユーザーが選択した感情部門
+
+		//-----セッションの値をEntityに詰める（findAllForSelectedSentimentTypeのSQLでバインド変数を使うため）-----
 		Play play = new Play();
 		play.setYourSentimentType(analyzedSentimentType);
+
+		//-----ユーザーが選択した感情部門で事前に用意しているお題一覧を取得-----
 		List<Play> challengesList = playService.findAllForSelectedSentimentType(analyzedSentimentType);
+
+		//-----最後まとめ-----
 		model.addAttribute("title", "お題に続く文章を投稿して感情分析しよう！");
-		model.addAttribute("analyzedSentimentType", analyzedSentimentType);//消す
 		model.addAttribute("challengesList", challengesList);
 		return "form";
 	}
 
 	/*
 	 * 投稿文章のValidation結果による振り分け
-	 * Validation OK：結果確認画面へ
-	 * Validation NG：再度フォーム画面へ
+	 * Validation OK：result画面へ
+	 * Validation NG：再度form画面へ
 	 */
 	@PostMapping("/judge")
 	public String judgeText(
@@ -113,7 +121,7 @@ public class PlayController {
 			) {
 		if (!result.hasErrors()) {
 			//redirectAttributes.addFlashAttribute("playForm", playForm); //フォームオブジェクトをフラッシュスコープへ格納
-			session.setAttribute("playForm", playForm); //フォームオブジェクトをセッションへ格納
+			session.setAttribute("playForm", playForm); //playFormオブジェクトをセッションへ格納
 			return "redirect:/play/result";
 		} else {
 			model.addAttribute("title", "文章を入力し直してください");
@@ -153,10 +161,10 @@ public class PlayController {
 
 		//-----inputsテーブルへのデータ登録、および順位表示のためEntityに詰める処理-----
 		Play play = new Play();
-		play.setYourChallengeId(analyzedChallengeId);//inputsテーブルのcurrent_challenge_idに値をセット
-		play.setYourSentimentType(analyzedSentimentType);   //FormからEntityへ感情タイプの詰め替え
-		play.setInput(playForm.getInput());             //FormからEntityへ投稿内容の詰め替え
-		play.setScore(score);                           //感情分析スコアをセット
+		play.setYourChallengeId(analyzedChallengeId);    //inputsテーブルのcurrent_challenge_idに値をセット
+		play.setYourSentimentType(analyzedSentimentType);//FormからEntityへ感情タイプの詰め替え
+		play.setInput(playForm.getInput());              //FormからEntityへ投稿内容の詰め替え
+		play.setScore(score);                            //感情分析スコアをセット
 
 		//-----SQL発行-----
 		playService.insert(play);                                    //DBへinsert
