@@ -19,16 +19,56 @@
  		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
  	</header>
  	<div class="b-color"><!-- 背景色 -->
-		<div class="center">
+ 		<h3 class="center">結果を確認しよう</h3>
+ 		<!-- ----------投稿した文章---------- -->
+		<div class="center result-main">
 			<p>あなたの投稿した文章は</p>
-	 		<p th:text="${analyzedSentimentText}">投稿した文章</p>
+	 		<p class="result-char" th:text="${analyzedSentimentText}">投稿した文章</p>
 	 	</div>
-	 	<br>
-	 	<div class="center">
-			<p>あなたのスコア</p>
-	 		<p class="rank1" th:text="${score}">スコア</p>
-	 		<p class="rank2">/ 100 点</p>
+	 	<!-- ----------スコア---------- -->
+	 	<div class="center result-main">
+			<p>あなたのスコア（100点満点）</p>
+	 		<p class="inline1 result-char" th:text="${score}">スコア</p>
+	 		<p class="inline2"> 点</p>
 	 	</div>
+	 	<!-- ----------順位---------- -->
+	 	<div class="center result-main">
+	 		<p>あなたの順位</p>
+	 		<p class="inline1">第 </p>
+			<p class="inline2" th:text="${yourRank}">順位</p>
+			<p class="inline3">位 / </p>
+			<p class="inline4" th:text="${totalCount}">レコード総数</p>
+			<p class="inline5">人中</p>
+		</div>
+		<!-- ----------グラフ---------- -->
+			  	<canvas id="sentimentScoreChart" width="200" height="100" aria-label="PlayApp" role="img"></canvas>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+		<script type="text/javascript" th:inline="javascript">
+			const ctx = document.getElementById("sentimentScoreChart");
+			const barChart = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: [[${inputArray}]],
+					datasets: [{
+						label: "test",
+						data: [[${scoreArray}]],
+						backgroundColor: "rgba(219,39,91,0.5)"
+					}]
+				},
+				options: {
+					title: {
+						display: true,
+						text: "test-title"
+					},
+					responsive: true,
+					//maintainAspectRatio: false,
+					indexAxis: "y",
+					layout: {
+						padding: 20
+					}
+				}
+			});
+		</script>
 	 	<!-- ----------別画面へのへのリンク---------- -->
 	 	<div class="d-grid gap-2 col-8 mx-auto"><!-- グリッド8幅、中央寄せで配置 -->
 	 		<a class="btn btn-primary" type="button" th:href="@{/play/chart}">順位を確認する</a>

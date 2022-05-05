@@ -1,8 +1,50 @@
+/*bodyの背景色*/
+.b-color{
+	background: linear-gradient(to bottom right, #df89b5, #bfd9fe);
+}
+
+/*自作ボタン*/
+.btn-original{
+	background: #008b8b;
+	border-bottom: solid 4px #a9a9a9;
+	border-radius: 6px;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 5px 30px;
+	text-decoration: none;
+}
+
+/*インライン要素センター位置調整*/
+.center{
+	text-align: center;
+}
+
+/*footer*/
+.footer{
+	padding: 10px;
+}
+
 /*
 header{
 	position: fixed;
 }
 */
+
+/*home.html メイン枠*/
+.home-main{
+	color: #008b8b;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 10px 20px;
+	text-shadow: 1px 1px 2px silver;
+	/*padding: 10px 20px 10px 20px;*/
+}
+
+/*ブロック要素を横並びで表示*/
+.inline1, .inline2, .inline3, .inline4, .inline5{
+	display: inline;
+}
 
 /*ナビゲーションバー*/
 .nav{
@@ -11,31 +53,6 @@ header{
 	font-size: 30px;
 	font-weight: bold;
 	text-decoration: none;
-}
-
-/*bodyの背景色*/
-.b-color{
-	background: linear-gradient(to bottom right, #df89b5, #bfd9fe);
-}
-
-/*footer*/
-.footer{
-	padding: 10px;
-}
-
-/*下線*/
-.under{
-	/*text-decoration: underline;*/
-	background: linear-gradient(transparent 70%, #ffc037 70%); /*蛍光ペン*/
-}
-
-/*home.html アプリの説明*/
-.what{
-	color: #008b8b;
-	font-size: 20px;
-	font-weight: bold;
-	text-shadow: 1px 1px 2px silver;
-	padding: 10px 20px 10px 20px;
 }
 
 /*home.html 遊び方*/
@@ -75,21 +92,15 @@ ol > li:before{
   	transform: translateY(-50%);
 }
 
-/*インライン要素センター位置調整*/
-.center{
-	text-align: center;
+.result-char{
+	color: #008b8b;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px silver;
 }
 
-/*自作ボタン*/
-.btn-original{
-	background: #008b8b;
-	border-bottom: solid 4px #a9a9a9;
-	border-radius: 6px;
-	color: #ffffff;
-	font-size: 20px;
-	font-weight: bold;
-	padding: 5px 30px;
-	text-decoration: none;
+.result-main{
+	border-bottom: 2px solid #008b8b;
+	margin: 20px 40px;
 }
 
 .score{
@@ -99,15 +110,8 @@ ol > li:before{
 	font-weight: bold;
 }
 
-/*chart.htmlでスコア順位を表示*/
-.rank1{
-	display: inline;
-}
-
-.rank2{
-	display: inline;
-}
-
-.rank3{
-	display: inline;
+/*下線*/
+.under{
+	/*text-decoration: underline;*/
+	background: linear-gradient(transparent 70%, #ffc037 70%); /*蛍光ペン*/
 }
