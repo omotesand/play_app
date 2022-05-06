@@ -17,15 +17,15 @@
 		<h2 th:text="${title}">サンプル</h2>
 		<!-- ----------部門選択---------- -->
  		<form method="POST" th:action="@{/play/type}" th:object="${typeForm}">
- 			<div class="center sentiment-main">
+ 			<div class="center sentiment-main animation-slidein">
  				<p>より<span class="sentiment-positive under">ポジティブ</span>な文章を作成してハイスコアを目指そう</p>
 	   			<button class="btn-original" type="submit" name="yourSentimentType" value="1">ポジティブ部門</button>
 	   		</div>
-	   		<div class="center sentiment-main">
+	   		<div class="center sentiment-main animation-slidein">
 	   			<p>より<span class="sentiment-neutral under">感情を出さない</span>文章を作成してハイスコアを目指そう</p>
 	   			<button class="btn-original" type="submit" name="yourSentimentType" value="2">ニュートラル部門</button>
 	   		</div>
-	   		<div class="center sentiment-main">
+	   		<div class="center sentiment-main animation-slidein">
 	 	  		<p>より<span class="sentiment-negative under">ネガティブ</span>な文章を作成してハイスコアを目指そう</p>
 	   			<button class="btn-original" type="submit" name="yourSentimentType" value="3">ネガティブ部門</button>
 			</div>

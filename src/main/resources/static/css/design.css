@@ -1,18 +1,72 @@
-/*bodyの背景色*/
-.b-color{
-	background: linear-gradient(to bottom right, #df89b5, #bfd9fe);
+/*スライドインアニメーション*/
+.animation-slidein{
+	animation-name           : slideIn;                      /*名前（@keyframesで指定）*/
+	animation-duration       : 1s;                           /*開始～終了までの時間*/
+	animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);/*進み方（始めと終わりゆっくりなど）*/
+	animation-delay          : 0s;                           /*開始までの遅延時間*/
+	animation-iteration-count: 1;                            /*再生回数*/
+	animation-direction      : normal;                       /*再生方向*/
+	animation-fill-mode      : forwards;                     /*アニメーション終了時に初期状態に戻らない*/
 }
 
+/*スライドインアニメーションキーフレーム*/
+@keyframes slideIn{
+	0% {                             /*アニメーション開始時*/
+		opacity: 0;                  /*透明*/
+		transform: translateX(300px);/*横移動距離*/
+	}
+	100% {                           /*アニメーション終了時*/
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/*ズームインアニメーション*/
+.animation-zoomin{
+	animation-name           : zoomIn;                       /*名前（@keyframesで指定）*/
+	animation-duration       : 1s;                           /*開始～終了までの時間*/
+	animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);/*進み方（始めと終わりゆっくりなど）*/
+	animation-delay          : 0s;                           /*開始までの遅延時間*/
+	animation-iteration-count: 1;                            /*再生回数*/
+	animation-direction      : normal;                       /*再生方向*/
+	animation-fill-mode      : forwards;                     /*アニメーション終了時に初期状態に戻らない*/
+}
+
+/*ズームインアニメーションキーフレーム*/
+@keyframes zoomIn{
+	0% {                      /*アニメーション開始時*/
+		opacity: 0;           /*透明*/
+		transform: scale(0.6);/*大きさ*/
+	}
+	100% {                    /*アニメーション終了時*/
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/*bodyの背景色*/
+.b-color{
+	/*background: linear-gradient(to bottom right, #df89b5, #bfd9fe);*/
+	background: #e0ffff;
+}
+
+/*ボタン*/
 .btn-original{
 	background: #008b8b;
-	border-bottom: solid 5px #2f4f4f;
+	border: 1px;
 	border-radius: 6px;
-	border-right: solid 5px #2f4f4f;
+	box-shadow: 2px 2px 4px #808080;
 	color: #ffffff;
 	font-size: 20px;
 	font-weight: bold;
 	height: 40px;
+	transition: .3s;
 	width: 300px;
+}
+
+/*ボタンホバー時に透過*/
+.btn-original:hover{
+	opacity: 0.8;
 }
 
 /*インライン要素センター位置調整*/
@@ -46,16 +100,24 @@ header{
 	display: inline;
 }
 
-/*自作リンク*/
+/*リンク*/
 .link-original{
 	background: #008b8b;
-	border-bottom: solid 4px #a9a9a9;
+	border: 1px;
 	border-radius: 6px;
+	box-shadow: 2px 2px 4px #808080;
 	color: #ffffff;
+	display: inline-block;
 	font-size: 20px;
 	font-weight: bold;
 	padding: 5px 30px;
 	text-decoration: none;
+	transition: .3s;
+}
+
+/*リンクホバー時に透過*/
+.link-original:hover{
+	opacity: 0.8;
 }
 
 /*ナビゲーションバー*/
@@ -104,33 +166,39 @@ ol > li:before{
   	transform: translateY(-50%);
 }
 
+/*result.html 文字外観変更*/
 .result-char{
 	color: #008b8b;
 	font-weight: bold;
 	text-shadow: 1px 1px 2px silver;
 }
 
+/*result.html メインブロック*/
 .result-main{
 	border-bottom: 2px solid #008b8b;
 	margin: 20px 40px;
 }
 
+/*sentiment.html メインブロック*/
 .sentiment-main{
 	margin: 50px 10px;
 }
 
+/*sentiment.html ネガティブ部門ボタン*/
 .sentiment-negative{
 	color: #0000ff;
 	font-size: 20px;
 	font-weight: bold;
 }
 
+/*sentiment.html ニュートラル部門ボタン*/
 .sentiment-neutral{
 	color: #008000;
 	font-size: 20px;
 	font-weight: bold;
 }
 
+/*sentiment.html ポジティブ部門ボタン*/
 .sentiment-positive{
 	color: #ff0000;
 	font-size: 20px;
