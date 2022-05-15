@@ -10,16 +10,33 @@
   	</head>
   	<body>
   	<!-- ----------ナビゲーションバー---------- -->
- 	<!--  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
- 		<div class="col text-center">
- 			<a class="navbar-brand" th:href="@{/play}">ネガポジAIチェック</a>
- 		</div>
- 	</nav>-->
  	<header>
  		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
  	</header>
  	<div class="b-color"><!-- 背景色 -->
  		<h3 class="center">結果を確認しよう</h3>
+		<!-- ----------プログレスバー---------- -->
+		<div class="Group">
+  			<div class="Group-Bar"></div>
+   			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+  					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+  				</div>
+ 				<p class="Group-Item-Text">STEP1</p>
+ 			</div>
+ 			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+  					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+  				</div>
+  				<p class="Group-Item-Text">STEP2</p>
+			</div>
+ 			<div class="Group-Item isActive">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder isActive">
+ 					<div class="Group-Item-CircleInner Circle Shapeborder isActive"></div>
+ 				</div>
+  				<p class="Group-Item-Text">FINISH</p>
+			</div>
+		</div>
  		<!-- ----------投稿した文章---------- -->
 		<div class="center result-main">
 			<p>あなたの投稿した文章は</p>

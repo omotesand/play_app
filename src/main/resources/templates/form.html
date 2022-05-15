@@ -22,39 +22,35 @@
 	<div class="b-color"><!-- 背景色 -->
 	 	<!-- ----------アイコン---------- -->
 	 	<h2 th:text="${title}" style="text-align:center">サンプル</h2>
-	 	<div class="d-flex justify-content-around m-5"><!-- アイコンを等間隔で配置 -->
+	 	<!--  <div class="d-flex justify-content-around m-5"><!-- アイコンを等間隔で配置
 	 		<i class="fa-solid fa-door-open fa-4x" style="color:black;"></i>
 	 		<i class="fa-solid fa-user-gear fa-4x" style="color:black;"></i>
 	 		<i class="fa-solid fa-chart-simple fa-4x" style="color:black;"></i>
-	 	</div>
+	 	</div>-->
+		<!-- ----------プログレスバー---------- -->
+		<div class="Group">
+  			<div class="Group-Bar"></div>
+   			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+  					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+  				</div>
+ 				<p class="Group-Item-Text">STEP1</p>
+ 			</div>
+ 			<div class="Group-Item isActive">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder isActive">
+  					<div class="Group-Item-CircleInner Circle Shapeborder isActive"></div>
+  				</div>
+  				<p class="Group-Item-Text">STEP2</p>
+			</div>
+ 			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+ 					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+ 				</div>
+  				<p class="Group-Item-Text">FINISH</p>
+			</div>
+		</div>
 	  	<!-- ----------フォーム---------- -->
 	  	<form method="POST" th:action="@{/play/judge}" th:object="${playForm}">
-	  		<!-- ----------感情タイプ選択欄---------- -->
-	  		<!--  <div class="form-group mx-5">
-	  			<label>感情のタイプを選択してください</label>
-	  			<!--  <select name="sentimentType" class="form-control">
-	  				<option value="">選択してください</option>
-	  				<option value="1" th:selected="*{sentimentType == 1}">ポジティブな文章を投稿する</option>
-	  				<option value="2" th:selected="*{sentimentType == 2}">ニュートラルな文章を投稿する</option>
-	  				<option value="3" th:selected="*{sentimentType == 3}">ネガティブな文章を投稿する</option>
-	  			</select>-->
-	  			<!-- ラジオボタン縦並びのためdivタグで囲む
-	  				<label>
-	  					<input type="radio" name="sentimentType" value="1" required>ポジティブな文章を投稿する
-	  				</label>
-	  			</div>
-	  			<div>
-	  				<label>
-	  					<input type="radio" name="sentimentType" value="2" required>ニュートラルな文章を投稿する
-	  				</label>
-	  			</div>
-	  			<div>
-	  				<label>
-	  					<input type="radio" name="sentimentType" value="3" required>ネガティブな文章を投稿する
-	  				</label>
-	  			</div>
-	  		</div>
-	  		<br>-->
 	  		<!-- ----------お題選択欄---------- -->
 	  		<div class="form-group mx-5">
 				<label>お題を選択しよう</label>
