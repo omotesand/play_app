@@ -21,26 +21,26 @@
 	}
 }
 
-/*ズームインアニメーション*/
-.animation-zoomin{
-	animation-name           : zoomIn;                       /*名前（@keyframesで指定）*/
-	animation-duration       : 1s;                           /*開始～終了までの時間*/
-	animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);/*進み方（始めと終わりゆっくりなど）*/
+/*フェードインアニメーション*/
+.animation-fadein{
+	animation-name           : fadeIn;                       /*名前（@keyframesで指定）*/
+	animation-duration       : 3s;                           /*開始～終了までの時間*/
+	animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);/*進み方（始めと終わりゆっくりなど）*/
 	animation-delay          : 0s;                           /*開始までの遅延時間*/
 	animation-iteration-count: 1;                            /*再生回数*/
 	animation-direction      : normal;                       /*再生方向*/
 	animation-fill-mode      : forwards;                     /*アニメーション終了時に初期状態に戻らない*/
 }
 
-/*ズームインアニメーションキーフレーム*/
-@keyframes zoomIn{
+/*フェードインアニメーションキーフレーム*/
+@keyframes fadeIn{
 	0% {                      /*アニメーション開始時*/
 		opacity: 0;           /*透明*/
-		transform: scale(0.6);/*大きさ*/
+		/*transform: scale(0.6);/*大きさ*/
 	}
 	100% {                    /*アニメーション終了時*/
 		opacity: 1;
-		transform: scale(1);
+		/*transform: scale(1);*/
 	}
 }
 
