@@ -210,3 +210,100 @@ ol > li:before{
 	/*text-decoration: underline;*/
 	background: linear-gradient(transparent 70%, #ffc037 70%); /*蛍光ペン*/
 }
+
+/* **********以下プログレスバー********** */
+.Group {                            /*一番外のブロック*/
+	display        : flex;          /*要素横並び*/
+	justify-content: space-between; /*等間隔に配置*/
+	margin         : 0 auto;        /*ブロック要素中央寄せ*/
+	margin-bottom  : 20px;
+	margin-top     : 20px;
+	max-width      : 600px;         /*これより大きな幅にはならない*/
+	position       : relative;      /*子要素をabsoluteにするので*/
+	width          : 100%;          /*横幅マックス（ただしmax-width以下）*/
+	z-index        : 0;             /*要素の重なりの順番*/
+}
+
+.Group-Bar {                    /*バー*/
+	background-color: #808080;  /*バーの色*/
+	height          : 2px;      /*横幅768px以上の場合は次のセレクタで指定*/
+	left            : 5%;       /*親要素に対する位置*/
+	position        : absolute; /*親要素に対してポジションを絶対位置で指定*/
+	top             : 12px;     /*横幅768px以上の場合は次のセレクタで指定*/
+	width           : 90%;
+	z-index         : -1;
+}
+
+@media screen and (min-width: 768px) { /*横幅768px以上の画面で見た場合*/
+	.Group-Bar {
+		top: 17px;
+		height: 5px;
+	}
+}
+
+.Shapeborder.isActive { /*アクティブなプログレスの境界線*/
+	border: 2px solid #ff0000;
+}
+
+.Circle {
+	border-radius: 50%;
+}
+
+.Group-Item {                /*文字*/
+	color         : #808080;
+	display       : flex;
+	flex-direction: column;
+	align-items   : center;
+}
+
+.Group-Item.isActive { /*文字（アクティブ）*/
+	color: #ff0000;
+}
+
+.Group-Item-CircleOuter {  /*プログレスの大きい円*/
+	width          : 26px; /*横幅768px以上の場合は次のセレクタで指定*/
+	height         : 26px; /*横幅768px以上の場合は次のセレクタで指定*/
+	display        : flex;
+	justify-content: center;
+	align-items    : center;
+}
+
+@media screen and (min-width: 768px) { /*横幅768px以上の画面で見た場合*/
+	.Group-Item-CircleOuter {
+		width: 39px;
+		height: 39px;
+	}
+}
+
+.Group-Item-CircleOuter.isActive { /*大きい円（アクティブ）*/
+	background: #ffffff;           /*白*/
+}
+
+.Group-Item-CircleInner {      /*プログレスの小さい円*/
+	width           : 16px;    /*横幅768px以上の場合は次のセレクタで指定*/
+	height          : 16px;    /*横幅768px以上の場合は次のセレクタで指定*/
+	background-color: #a9a9a9;
+	display         : flex;
+	align-items     : center;
+}
+
+@media screen and (min-width: 768px) { /*横幅768px以上の画面で見た場合*/
+	.Group-Item-CircleInner {
+		width: 25px;
+		height: 25px;
+	}
+}
+
+.Group-Item-CircleInner.isActive { /*プログレスの小さい円（アクティブ）*/
+	background: #ff0000;
+}
+
+.Group-Item-CircleInner:last-of-type::after { /*プログレスの小さい円の最終アイテムの後ろ*/
+	content: none;                            /*何も表示しない*/
+}
+
+.Group-Item-Text {
+	margin-top: 5px;
+	font-size: 16px;
+	font-weight: 600;
+}

@@ -15,6 +15,28 @@
  	</header>
  	<div class="b-color"><!-- 背景色 -->
 		<h2 th:text="${title}">サンプル</h2>
+		<!-- ----------プログレスバー---------- -->
+		<div class="Group">
+  			<div class="Group-Bar"></div>
+   			<div class="Group-Item isActive">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder isActive">
+  					<div class="Group-Item-CircleInner Circle Shapeborder isActive"></div>
+  				</div>
+ 				<p class="Group-Item-Text">STEP1</p>
+ 			</div>
+ 			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+  					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+  				</div>
+  				<p class="Group-Item-Text">STEP2</p>
+			</div>
+ 			<div class="Group-Item">
+  				<div class="Group-Item-CircleOuter Circle Shapeborder">
+ 					<div class="Group-Item-CircleInner Circle Shapeborder"></div>
+ 				</div>
+  				<p class="Group-Item-Text">FINISH</p>
+			</div>
+		</div>
 		<!-- ----------部門選択---------- -->
  		<form method="POST" th:action="@{/play/type}" th:object="${typeForm}">
  			<div class="center sentiment-main animation-slidein">
