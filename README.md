@@ -15,6 +15,9 @@ This is Spring Boot web application using sentiment analysis AI.
 - HTML/CSS
 - Chart.js
 
-# AWS
+# AWS Architecture Diagram
 
 <img width="539" alt="my-infra" src="https://user-images.githubusercontent.com/100463080/169912654-d519a0c3-98e5-47f8-9071-b6241686d974.png">
+
+# Featres list
+
