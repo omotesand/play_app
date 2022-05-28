@@ -17,11 +17,16 @@
  		</div>
  	</nav>-->
  	<header>
- 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 		<a class="nav" th:href="@{/play}">感情分析アプリ</a>
  	</header>
 	<div class="b-color"><!-- 背景色 -->
-	 	<!-- ----------アイコン---------- -->
-	 	<h2 th:text="${title}" style="text-align:center">サンプル</h2>
+		<br>
+	 	<!-- ----------見出し---------- -->
+	 	<div class="center">
+	 		<div class="head-title">
+	 			<h2 th:text="${title}" class="head-title-text">サンプル</h2>
+	 		</div>
+	 	</div>
 	 	<!--  <div class="d-flex justify-content-around m-5"><!-- アイコンを等間隔で配置
 	 		<i class="fa-solid fa-door-open fa-4x" style="color:black;"></i>
 	 		<i class="fa-solid fa-user-gear fa-4x" style="color:black;"></i>
@@ -66,8 +71,8 @@
 	  		<!-- ----------回答入力欄---------- -->
 	  		<div class="form-group mx-5">
 	  			<label for="input-id">お題に続く文章を作成しよう</label>
-	  			<p>注1）15文字以上50文字以内で入力してください。</p>
-	  			<p>注2）できる限り日本語で入力してください。日本語以外が混じると正常に分析できない可能性があります。</p>
+	  			<p>注1）<span class="form-text">15文字以上50文字以内</span>で入力してください。</p>
+	  			<p>注2）できる限り<span class="form-text">日本語で入力してください</span>。日本語以外が混じると正常に分析できない可能性があります。</p>
 	  			<textarea name="input" class="form-control" id="input-id" rows="4" cols="30" placeholder="ここに文章を入力" minlength="15" maxlength="50" required></textarea>
 	  		</div>
 	  		<br>

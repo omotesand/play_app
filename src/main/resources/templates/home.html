@@ -16,20 +16,17 @@
  		</div>
  	</nav>-->
  	<header>
- 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 		<a class="nav" th:href="@{/play}">感情分析アプリ</a>
  	</header>
  	<div class="b-color"><!-- 背景色 -->
 	 	<!-- ----------トップタイトル---------- -->
-	 	<div class="center">
-		   	<h2 th:text="${title}">サンプル</h2>
-	   		<p>～感情分析AIで遊ぼう！～</p>
-	   	</div>
+	   	<h1 th:text="${title}" class="center home-title">サンプル</h1>
 	   	<br>
 	   	<!-- ----------アプリ概要説明---------- -->
 	   	<div class="home-main animation-fadein">
-	   		<h2><span class="under">どんなアプリ？</span></h2>
+	   		<h3><span class="under">どんなアプリ？</span></h3>
 	   		<p>
-	   		お題に続く文章を入力し、<span class="home-positive">ポジティブ度</span>or<span class="home-negative">ネガティブ度</span>をAIにスコア判定してもらうアプリです。
+	   		お題に続く文章を作成し、<span class="home-positive">ポジティブ度</span>or<span class="home-negative">ネガティブ度</span>をAIにスコア判定してもらうアプリです。
 	   		<br>
 	   		より<span class="home-positive">ポジティブ</span>or<span class="home-negative">ネガティブ</span>な文章を作成して、ハイスコアをたたき出しましょう！
 	   		</p>
@@ -37,7 +34,7 @@
 	   	<br>
 	   	<!-- ----------使い方説明---------- -->
 	   	<div class="home-main animation-fadein">
-	   		<h2><span class="under">遊び方</span></h2>
+	   		<h3><span class="under">遊び方</span></h3>
 	   		<ol>
 	   			<li>判定部門を下記3つの中から選択する。</li>
 	   				<ul>

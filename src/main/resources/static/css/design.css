@@ -79,16 +79,51 @@
 	padding: 10px;
 }
 
-/*
-header{
-	position: fixed;
+/*form.htmlの注釈*/
+.form-text{
+	color: #ff0000;
+	font-weight: bold;
 }
-*/
+
+/*各ページ見出し*/
+.head-title{
+	background: #008b8b;
+	box-sizing: border-box; /*paddingとborderを幅と高さに含める*/
+	color: #ffffff;
+	display: inline-block;
+  	height: 60px;
+  	margin: 0 auto;
+  	padding: 7px 0;
+  	position: relative;
+  	/*text-align: center;*/
+}
+
+/*三角形*/
+.head-title:after{
+	border-color: transparent #e0ffff transparent transparent;
+  	border-style: solid;
+  	border-width: 30px 15px 30px 0px;
+  	content: '';
+  	height: 0px;
+  	position: absolute;
+  	right: 0;
+  	top: 0;
+  	width: 0px;
+  	z-index: 1;
+}
+
+/*各ページ見出し文字*/
+.head-title-text{
+ 	border-bottom: dashed 2px #ffffff;
+ 	border-top: dashed 2px #ffffff;
+  	line-height: 42px;
+  	padding: 0 30px 0 15px;
+}
 
 /*home.html メイン枠*/
 .home-main{
-	color: #008b8b;
-	font-size: 20px;
+	color: #000000;
+	font-size: 18px;
 	font-weight: bold;
 	margin: 10px 20px;
 	text-shadow: 1px 1px 2px silver;
@@ -111,6 +146,16 @@ header{
 .home-positive{
 	color: #ff0000;
 	font-weight: bold;
+}
+
+/*home.html トップタイトル*/
+.home-title{
+	/*color: #008b8b;*/
+	color: #008b8b;
+	padding: 20px 0px;
+	text-shadow:
+	1px 1px 0px #999,
+	2px 2px 0px #888;
 }
 
 /*ブロック要素を横並びで表示*/
@@ -167,7 +212,7 @@ ol > li:before{
   	content: counter(number);
   	/*以下数字のデザイン変える*/
   	display: inline-block;
-  	background: #5c9ee7;
+  	background: #008b8b;
   	color: white;
   	font-family: 'Avenir','Arial Black','Arial',sans-serif;
   	font-weight: bold;

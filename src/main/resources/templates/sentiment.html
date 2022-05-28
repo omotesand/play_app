@@ -11,10 +11,16 @@
   	<body>
 	<!-- ----------ナビゲーションバー---------- -->
  	<header>
- 		<a class="nav" th:href="@{/play}">ネガポジAIチェック</a>
+ 		<a class="nav" th:href="@{/play}">感情分析アプリ</a>
  	</header>
  	<div class="b-color"><!-- 背景色 -->
-		<h2 th:text="${title}">サンプル</h2>
+ 		<br>
+ 		<!-- ----------見出し---------- -->
+ 		<div class="center">
+ 			<div class="head-title">
+				<h2 th:text="${title}" class="head-title-text">サンプル</h2>
+			</div>
+		</div>
 		<!-- ----------プログレスバー---------- -->
 		<div class="Group">
   			<div class="Group-Bar"></div>

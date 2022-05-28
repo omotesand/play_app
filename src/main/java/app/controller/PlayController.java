@@ -47,7 +47,7 @@ public class PlayController {
 	 */
 	@GetMapping
 	public String homePage(Model model) {
-		model.addAttribute("title", "感情分析アプリ");
+		model.addAttribute("title", "Posi/Nega Check ! ～\"感情分析AI\"で遊ぼう～");
 		return "home";
 	}
 
