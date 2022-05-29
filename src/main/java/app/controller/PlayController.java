@@ -56,7 +56,7 @@ public class PlayController {
 	 */
 	@GetMapping("/sentiment")
 	public String typePage(TypeForm typeForm, Model model) {
-		model.addAttribute("title", "感情タイプを選択しよう！");
+		model.addAttribute("title", "判定部門を選択しよう！");
 		return "sentiment";
 	}
 
