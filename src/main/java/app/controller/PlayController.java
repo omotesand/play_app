@@ -183,7 +183,7 @@ public class PlayController {
 		playService.insert(play);                                    //DBへinsert
 		List<Play> showResultList = playService.findRank(play);      //スコア上位5位のリストを取得
 		Play       yourRank       = playService.findYourRank(play);  //スコアの順位を取得
-		Play       totalCount     = playService.findTotalCount(play);//投稿した部門のレコード総数取得
+		Play       totalCount     = playService.findTotalCount(play);//投稿したお題IDのレコード総数取得
 
 		//-----DBから取得した値を詰めるためのリストをつくる-----
 		List<String>     inputList = new ArrayList<String>();     //投稿を格納する空リストを生成

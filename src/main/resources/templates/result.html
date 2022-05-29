@@ -73,7 +73,13 @@
 				data: {
 					labels: [[${inputArray}]],
 					datasets: [{
-						label: ["test1", "test2", "test3", "test4", "text5"],
+						//label: [
+						//	"第1位",
+						//	"第2位",
+						//	"第3位",
+						//	"第4位",
+						//	"第5位"
+						//],
 						data: [[${scoreArray}]],
 						backgroundColor: [
 							"rgba(255,  0,  0, 0.5)",
@@ -96,11 +102,12 @@
 						},
 						//凡例
 						legend: {
+							display: false,//表示しない
 							labels: {
 								color: "rgba(0,  0,  0, 1.0)",
 								font: {size: 16}
 							},
-							position: "left"
+							position: "top"
 						},
 						scales: {
 							y: [{
