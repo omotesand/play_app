@@ -18,16 +18,7 @@ INSERT INTO challenges(sentiment_type, challenge)
 
 -- inputsテーブル
 INSERT INTO inputs(your_challenge_id, your_sentiment_type, input, score)
-            VALUES(1, 1, "ポジティブサンプル1", 87.975),
-                  (2, 1, "ポジティブサンプル2", 70.765),
-                  (3, 1, "ポジティブサンプル3", 70.545),
-                  (6, 3, "ネガティブサンプル1", 92.211),
-                  (6, 3, "ネガティブサンプル2", 90.805),
-                  (6, 3, "ネガティブサンプル3", 86.396),
-                  (7, 3, "ネガティブサンプル4", 9.001),
-                  (7, 3, "ネガティブサンプル5", 30.001),
-                  (7, 3, "ネガティブサンプル6", 90.865),
-                  (7, 3, "ネガティブサンプル7", 90.865);
+            VALUES(1, 1, "想像以上に面白く、毎日勉強を続けられた。", 99.950);
 
 -- sentimentテーブル
 INSERT INTO sentiment(sentiment_id, sentiment_type)
