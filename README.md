@@ -1,6 +1,11 @@
 **This is my application. You can check from [here](http://sentiment-app.com:8080/play).**
+
+(Also, you can see the application movie below.)
+
 # Let's play with sentiment analysis AI ! 🧠
 This is Spring Boot web application using sentiment analysis AI.
+
+The movie is here. You can check application overview. 👇
 
 https://user-images.githubusercontent.com/100463080/170863455-86ae31dc-fd3d-4f10-9e63-000576a5dee6.mp4
 
@@ -24,4 +29,6 @@ https://user-images.githubusercontent.com/100463080/170863455-86ae31dc-fd3d-4f10
 
 Amazon Comprehend is Learnd model of Natural Language Processing, which is able to perform sentiment analysis.
 
-When EC2 instance gets requests through form from the client, Spring application posts text to Comprehend by using AWS secret access key.
+When EC2 instance gets requests through the form from the client, spring application posts text to the Comprehend by using AWS secret access key.
+
+Amazon Comprehend analyzes the text and calculates positive, neutral, or negative score, and return the result to spring application.
