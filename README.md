@@ -1,8 +1,8 @@
 **This is my application. You can check from [here](http://sentiment-app.com:8080/play).**
 # Let's play with sentiment analysis AI ! 🧠
 This is Spring Boot web application using sentiment analysis AI.
-https://user-images.githubusercontent.com/100463080/170861866-02f0501e-ea53-4e25-8976-e56c103160de.mp4
 
+https://user-images.githubusercontent.com/100463080/170862038-ff7f8c44-fd49-4f2c-ba9b-965c2adb2039.mp4
 
 # Technology
 - Java 11.0.2
